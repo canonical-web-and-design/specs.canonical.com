@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>{% block title%}Canonical specs{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="{{ versioned_static('css/styles.css') }}"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="shortcut icon"
+      href="https://assets.ubuntu.com/v1/0843d517-favicon.ico"
+      type="image/x-icon"
+    />
+  </head>
+
+  <body>
+    <main class="p-content">
+      <header id="navigation" class="p-navigation">
+        <div class="p-navigation__row">
+          <div class="p-navigation__banner">
+            <div class="p-navigation__logo u-vertically-center">
+              <h1 class="p-navigation__item p-heading--4 u-no-margin--bottom">
+                Canonical specs
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {% block content %}{% endblock %}
+
+      <footer class="p-strip is-shallow">
+        <div class="row">
+          <div class="col-12">
+            © {{ current_year }} Canonical Ltd. Ubuntu and Canonical are
+            registered trademarks of Canonical Ltd.
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
