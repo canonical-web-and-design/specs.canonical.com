@@ -69,28 +69,22 @@
           </form>
         </div>
         <div class="p-divider__block col-8">
-          <nav class="p-tabs" aria-label="Status navigation">
-            <ul class="p-tabs__list">
-              <li class="p-tabs__item">
-                <a href="/braindump" class="p-tabs__link" aria-selected="true">Braindump</a>
-              </li>
-              <li class="p-tabs__item">
-                <a href="/drafting" class="p-tabs__link">Drafting</a>
-              </li>
-              <li class="p-tabs__item">
-                <a href="/pending-draft" class="p-tabs__link">Pending Review</a>
-              </li>
-              <li class="p-tabs__item">
-                <a href="/approved" class="p-tabs__link">Approved</a>
-              </li>
-              <li class="p-tabs__item">
-                <a href="/implemented" class="p-tabs__link">Implemented</a>
-              </li>
-            </ul>
-          </nav>
+          <div class="p-strip is-shallow">
+            <div class="row">
+              <div class="col-12">
+                <form class="p-search-box u-no-margin--bottom">
+                  <label class="u-off-screen" for="q">Search</label>
+                  <input type="search" id="q" class="p-search-box__input" name="q" placeholder="Search" required="" autocomplete="on" value="{{ query }}">
+                  <button type="reset" class="p-search-box__reset"><i class="p-icon--close">Close</i></button>
+                  <button type="submit" class="p-search-box__button"><i class="p-icon--search">Search</i></button>
+                </form>
+              </div>
+            </div>
+          </div>
           {% block content %}{% endblock %}
         </div>
       </div>
+
       <hr class="u-no-margin--bottom" />
       <footer class="p-strip is-shallow">
         <div class="row">
