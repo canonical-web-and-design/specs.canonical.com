@@ -68,4 +68,17 @@ def index():
 
             specs.append(spec)
 
-    return flask.render_template("index.html", specs=specs)
+    query = flask.request.args.get("q", "").strip()
+
+    filtered_specs = []
+
+    if query:
+        for x in specs:
+            for key, value in x.items():
+                if query in str(value):
+                    filtered_specs.append(x)
+                    break
+
+        specs = filtered_specs
+
+    return flask.render_template("index.html", specs=data, query=query)
