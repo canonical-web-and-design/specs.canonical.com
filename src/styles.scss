@@ -21,3 +21,13 @@
 .p-navigation.is-dark {
   background-color: $color-navigation-background;
 }
+
+.p-content {
+  position: relative;
+}
+
+.sticky-sidebar {
+  max-height: 100vh;
+  position: sticky;
+  top: 0;
+}
