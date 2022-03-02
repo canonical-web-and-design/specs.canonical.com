@@ -18,18 +18,39 @@
   </head>
 
   <body>
-    <main class="p-content">
-      <header id="navigation" class="p-navigation">
-        <div class="p-navigation__row">
-          <div class="p-navigation__banner">
-            <div class="p-navigation__logo u-vertically-center">
-              <h1 class="p-navigation__item p-heading--4 u-no-margin--bottom">
-                Canonical specs
-              </a>
-            </div>
+    <header id="navigation" class="p-navigation is-dark">
+      <div class="p-navigation__row">
+        <div class="p-navigation__banner">
+          <div class="p-navigation__logo">
+            <a class="p-navigation__item" href="#">
+              <img class="p-navigation__image" src="https://assets.ubuntu.com/v1/2fcd45d2-logo-canonical-white.png" alt="Canonical" width="133" height="19" style="min-height: auto;">
+            </a>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
+    <main class="p-content">
+      <div class="row">
+        <nav class="p-tabs" aria-label="Status navigation">
+          <ul class="p-tabs__list">
+            <li class="p-tabs__item">
+              <a href="/braindump" class="p-tabs__link" aria-selected="true">Braindump</a>
+            </li>
+            <li class="p-tabs__item">
+              <a href="/drafting" class="p-tabs__link">Drafting</a>
+            </li>
+            <li class="p-tabs__item">
+              <a href="/pending-draft" class="p-tabs__link">Pending Review</a>
+            </li>
+            <li class="p-tabs__item">
+              <a href="/approved" class="p-tabs__link">Approved</a>
+            </li>
+            <li class="p-tabs__item">
+              <a href="/implemented" class="p-tabs__link">Implemented</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
       {% block content %}{% endblock %}
 

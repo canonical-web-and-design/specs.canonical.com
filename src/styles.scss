@@ -1,3 +1,4 @@
+@import "settings";
 @import "vanilla-framework";
 @include vanilla;
 
@@ -15,4 +16,8 @@
   background-color: $color-light;
   display: flex;
   justify-content: space-between;
+}
+
+.p-navigation.is-dark {
+  background-color: $color-navigation-background;
 }
