@@ -81,4 +81,4 @@ def index():
 
         specs = filtered_specs
 
-    return flask.render_template("index.html", specs=data, query=query)
+    return flask.render_template("index.html", specs=specs, query=query)

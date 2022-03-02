@@ -69,19 +69,22 @@
           </form>
         </div>
         <div class="p-divider__block col-8">
-          {% block content %}{% endblock %}
-      <div class="p-strip--light is-shallow">
-        <div class="row">
-          <div class="col-12">
-            <form class="p-search-box u-no-margin--bottom">
-              <label class="u-off-screen" for="q">Search</label>
-              <input type="search" id="q" class="p-search-box__input" name="q" placeholder="Search" required="" autocomplete="on" value="{{ query }}">
-              <button type="reset" class="p-search-box__reset"><i class="p-icon--close">Close</i></button>
-              <button type="submit" class="p-search-box__button"><i class="p-icon--search">Search</i></button>
-            </form>
+          <div class="p-strip is-shallow">
+            <div class="row">
+              <div class="col-12">
+                <form class="p-search-box u-no-margin--bottom">
+                  <label class="u-off-screen" for="q">Search</label>
+                  <input type="search" id="q" class="p-search-box__input" name="q" placeholder="Search" required="" autocomplete="on" value="{{ query }}">
+                  <button type="reset" class="p-search-box__reset"><i class="p-icon--close">Close</i></button>
+                  <button type="submit" class="p-search-box__button"><i class="p-icon--search">Search</i></button>
+                </form>
+              </div>
+            </div>
           </div>
+          {% block content %}{% endblock %}
         </div>
       </div>
+
       <hr class="u-no-margin--bottom" />
       <footer class="p-strip is-shallow">
         <div class="row">
