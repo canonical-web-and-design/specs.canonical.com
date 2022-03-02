@@ -113,7 +113,7 @@ def index():
                     if index_in_list(row["values"], 9)
                     else None
                 ),
-                "lastUpated": get_date_value_row(
+                "lastUpdated": get_date_value_row(
                     row["values"][10]
                     if index_in_list(row["values"], 10)
                     else None
