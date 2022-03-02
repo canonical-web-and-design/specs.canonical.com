@@ -30,30 +30,68 @@
       </div>
     </header>
     <main class="p-content">
-      <div class="row">
-        <nav class="p-tabs" aria-label="Status navigation">
-          <ul class="p-tabs__list">
-            <li class="p-tabs__item">
-              <a href="/braindump" class="p-tabs__link" aria-selected="true">Braindump</a>
-            </li>
-            <li class="p-tabs__item">
-              <a href="/drafting" class="p-tabs__link">Drafting</a>
-            </li>
-            <li class="p-tabs__item">
-              <a href="/pending-draft" class="p-tabs__link">Pending Review</a>
-            </li>
-            <li class="p-tabs__item">
-              <a href="/approved" class="p-tabs__link">Approved</a>
-            </li>
-            <li class="p-tabs__item">
-              <a href="/implemented" class="p-tabs__link">Implemented</a>
-            </li>
-          </ul>
-        </nav>
+      <div class="p-divider row u-no-margin--bottom">
+        <div class="p-divider__block col-4 sticky-sidebar">
+          <!-- TODO: Replace with API-generated data -->
+          <form>
+            <label for="teamSelect">Team</label>
+            <select name="teamSelect" id="teamSelect">
+              <option value="all">All teams</option>
+              <option value="AC">AC - Anbox Cloud</option>
+              <option value="CE">CE - Ceph</option>
+              <option value="CO">CO - Community</option>
+            </select>
+            <p class="u-no-margin--bottom">Type</p>
+            <label class="p-checkbox">
+              <input type="checkbox" aria-labelledby="standardType" class="p-checkbox__input">
+              <span class="p-checkbox__label" id="standardType">Standard</span>
+            </label>
+            <label class="p-checkbox">
+              <input type="checkbox" aria-labelledby="informationalType" class="p-checkbox__input">
+              <span class="p-checkbox__label" id="informationalType">Informational</span>
+            </label>
+            <label class="p-checkbox">
+              <input type="checkbox" aria-labelledby="processType" class="p-checkbox__input">
+              <span class="p-checkbox__label" id="processType">Process</span>
+            </label>
+            <label for="contributorSelect">Contributor</label>
+            <select name="contributorSelect" id="contributorSelect">
+              <option value="all">All contributors</option>
+              <option value="person1">Person 1</option>
+              <option value="person2">Person 2</option>
+              <option value="person3">Person 3</option>
+            </select>
+            <label class="p-switch">
+              <input type="checkbox" class="p-switch__input" role="switch">
+              <span class="p-switch__slider"></span>
+              <span class="p-switch__label">Show broken metadata</span>
+            </label>
+          </form>
+        </div>
+        <div class="p-divider__block col-8">
+          <nav class="p-tabs" aria-label="Status navigation">
+            <ul class="p-tabs__list">
+              <li class="p-tabs__item">
+                <a href="/braindump" class="p-tabs__link" aria-selected="true">Braindump</a>
+              </li>
+              <li class="p-tabs__item">
+                <a href="/drafting" class="p-tabs__link">Drafting</a>
+              </li>
+              <li class="p-tabs__item">
+                <a href="/pending-draft" class="p-tabs__link">Pending Review</a>
+              </li>
+              <li class="p-tabs__item">
+                <a href="/approved" class="p-tabs__link">Approved</a>
+              </li>
+              <li class="p-tabs__item">
+                <a href="/implemented" class="p-tabs__link">Implemented</a>
+              </li>
+            </ul>
+          </nav>
+          {% block content %}{% endblock %}
+        </div>
       </div>
-
-      {% block content %}{% endblock %}
-
+      <hr class="u-no-margin--bottom" />
       <footer class="p-strip is-shallow">
         <div class="row">
           <div class="col-12">
