@@ -1,5 +1,16 @@
 import flask
+import requests
+import os
+
 from canonicalwebteam.flask_base.app import FlaskBase
+
+DEPLOYMENT_ID = os.getenv(
+    "DEPLOYMENT_ID",
+    "AKfycbw5ph73HX2plnYE1Q03K7M8BQhlrp12Dck27bukPWCbXzBdRgP1N456fPiipR9J2H7q",
+)
+SPECS_API = (
+    f"https://script.google.com/macros/s/{DEPLOYMENT_ID}/exec"
+)
 
 app = FlaskBase(
     __name__,
@@ -11,4 +22,7 @@ app = FlaskBase(
 
 @app.route("/")
 def index():
-    return flask.render_template("index.html")
+    response = requests.get(SPECS_API)
+    data = response.json()
+
+    return flask.render_template("index.html", specs=data["specs"])

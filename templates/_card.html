@@ -1,0 +1,26 @@
+<div class="spec-card p-card col-6 u-no-padding">
+  <div class="spec-card__content p-card__inner">
+    <ul class="p-inline-list--middot u-no-margin--bottom">
+      <li class="p-inline-list__item">
+        {{ spec.index }}
+      </li>
+      <li class="p-inline-list__item">
+        {{ spec.folderName }}
+      </li>
+      <li class="p-inline-list__item">
+        {{ spec.type }}
+      </li>
+    </ul>
+    <h3 class="p-heading--4 u-no-margin--bottom">
+      <a href="{{ spec.fileURL }}">{{ spec.title }}</a>
+    </h3>
+    <small>{{ spec.authors }}</small>
+    <p class="p-card__content">
+      <small class="u-text--muted">{{ spec.numberOfComments }} comments</small>
+    </p>
+  </div>
+  <div class="spec-card__footer p-card__inner">
+    <div class="p-label">{{ spec.status }}</div>
+    <em class="u-align--right">Last edit: {{ spec.lastUpated }}</em>
+  </div>
+</div>

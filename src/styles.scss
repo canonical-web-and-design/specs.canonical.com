@@ -1,2 +1,18 @@
 @import "vanilla-framework";
 @include vanilla;
+
+.spec-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-card__content {
+  flex-grow: 1;
+}
+
+.spec-card__footer {
+  align-items: center;
+  background-color: $color-light;
+  display: flex;
+  justify-content: space-between;
+}
