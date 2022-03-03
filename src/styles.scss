@@ -7,6 +7,7 @@ $color-navigation-background: #772953;
   display: flex;
   flex-direction: column;
   border-top: 3px solid #666;
+  border-top-color: $color-negative !important;
 }
 
 .spec-card .p-chip {
@@ -26,10 +27,6 @@ $color-navigation-background: #772953;
 
 .spec-card--approved {
   border-top-color: $color-positive !important;
-}
-
-.spec-card--error {
-  border-top-color: $color-negative !important;
 }
 
 .spec-card__content {

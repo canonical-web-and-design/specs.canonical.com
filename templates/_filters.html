@@ -1,0 +1,83 @@
+<form>
+  <label for="teamSelect">Team</label>
+  <select name="teamSelect" id="teamSelect">
+    <option value="all">All teams</option>
+    <option value="AC - Anbox Cloud">AC - Anbox Cloud</option>
+    <option value="CE - Ceph">CE - Ceph</option>
+    <option value="CO - Community">CO - Community</option>
+    <option value="CP - CPC">CP - CPC</option>
+    <option value="DA - Data Platform">DA - Data Platform</option>
+    <option value="ED - EdgeX">ED - EdgeX</option>
+    <option value="FO - Foundations">FO - Foundations</option>
+    <option value="ID - Identity">ID - Identity</option>
+    <option value="JU - Juju">JU - Juju</option>
+    <option value="KE - Kernel">KE - Kernel</option>
+    <option value="KO - KernOS">KO - KernOS</option>
+    <option value="KU - Kubernetes">KU - Kubernetes</option>
+    <option value="LA - Landscape">LA - Landscape</option>
+    <option value="LP - Launchpad">LP - Launchpad</option>
+    <option value="LX - LXD">LX - LXD</option>
+    <option value="MA - MAAS">MA - MAAS</option>
+    <option value="MI - Mir">MI - Mir</option>
+    <option value="MU - Multipass">MU - Multipass</option>
+    <option value="OB - Observability Platform">
+      OB - Observability Platform
+    </option>
+    <option value="OM - OSM">OM - OSM</option>
+    <option value="OP - Operator Engineering">OP - Operator Engineering</option>
+    <option value="OS - Openstack">OS - Openstack</option>
+    <option value="RO - Robotics">RO - Robotics</option>
+    <option value="SD - SnapD">SD - SnapD</option>
+    <option value="SE - Security">SE - Security</option>
+    <option value="SN - Snap Store">SN - Snap Store</option>
+    <option value="SR - Server Commercial Engineering">
+      SR - Server Commercial Engineering
+    </option>
+    <option value="ST - Starcraft">ST - Starcraft</option>
+    <option value="TE - Telco">TE - Telco</option>
+    <option value="UC - Ubuntu Core">UC - Ubuntu Core</option>
+    <option value="UD - Ubuntu Desktop">UD - Ubuntu Desktop</option>
+    <option value="US - Ubuntu Server">US - Ubuntu Server</option>
+    <option value="WD - Web & Design">WD - Web & Design</option>
+    <option value="WS - WSL">WS - WSL</option>
+  </select>
+  <p class="u-no-margin--bottom">Status</p>
+  <label class="p-checkbox">
+    <input class="p-checkbox__input" id="approvedStatus" type="checkbox" />
+    <span class="p-checkbox__label">Approved</span>
+  </label>
+  <label class="p-checkbox">
+    <input class="p-checkbox__input" id="pendingReviewStatus" type="checkbox" />
+    <span class="p-checkbox__label">Pending Review</span>
+  </label>
+  <label class="p-checkbox">
+    <input class="p-checkbox__input" id="draftingStatus" type="checkbox" />
+    <span class="p-checkbox__label">Drafting</span>
+  </label>
+  <label class="p-checkbox">
+    <input class="p-checkbox__input" id="braindumpStatus" type="checkbox" />
+    <span class="p-checkbox__label">Braindump</span>
+  </label>
+  <p class="u-no-margin--bottom">Type</p>
+  <label class="p-checkbox">
+    <input class="p-checkbox__input" id="standardType" type="checkbox" />
+    <span class="p-checkbox__label">Standard</span>
+  </label>
+  <label class="p-checkbox">
+    <input class="p-checkbox__input" id="informationalType" type="checkbox" />
+    <span class="p-checkbox__label">Informational</span>
+  </label>
+  <label class="p-checkbox">
+    <input class="p-checkbox__input" id="processType" type="checkbox" />
+    <span class="p-checkbox__label">Process</span>
+  </label>
+  <label for="contributorSelect">Contributor</label>
+  <select name="contributorSelect" id="contributorSelect">
+    <option value="all">All contributors</option>
+  </select>
+  <label class="p-switch">
+    <input type="checkbox" class="p-switch__input" role="switch" />
+    <span class="p-switch__slider"></span>
+    <span class="p-switch__label">Show broken metadata</span>
+  </label>
+</form>
