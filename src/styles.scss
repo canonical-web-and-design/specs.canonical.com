@@ -67,3 +67,10 @@ $increase-font-size-on-larger-screens: false;
   top: 0;
 }
 
+.l-fluid-breakout .l-fluid-breakout__main {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.p-navigation__row {
+  max-width: 100%;
+}

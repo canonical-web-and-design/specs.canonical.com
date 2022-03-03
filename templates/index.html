@@ -2,13 +2,69 @@
 
 {% block content %}
 
-<div class="p-strip is-shallow">
-  <div class="row u-equal-height">
-    {% for spec in specs %}
-      {% with spec=spec %}
-        {% include "_card.html" %}
-      {% endwith %}
-    {% endfor %}
+<div class="p-strip is-shallow l-fluid-breakout__toolbar">
+  <div class="l-fluid-breakout__toolbar-items">
+    <div class="l-fluid-breakout__toolbar-item">
+      {{ specs|length }} specs
+    </div>
+    <div class="l-fluid-breakout__toolbar-item">
+      <form class="p-search-box u-no-margin--bottom">
+        <label class="u-off-screen" for="q">Search</label>
+        <input
+          type="search"
+          id="q"
+          class="p-search-box__input"
+          name="q"
+          placeholder="Search"
+          required=""
+          autocomplete="on"
+          value="{{ query }}"
+        />
+        <button type="reset" class="p-search-box__reset">
+          <i class="p-icon--close">Close</i>
+        </button>
+        <button type="submit" class="p-search-box__button">
+          <i class="p-icon--search">Search</i>
+        </button>
+      </form>
+      <script>
+        function initSearchResetButtons(selector) {
+          var resetButtons = [].slice.call(document.querySelectorAll(selector));
+
+          resetButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+              var input = button.parentNode.querySelector('input');
+
+              // Construct URLSearchParams object instance from current URL querystring.
+              var queryParams = new URLSearchParams(window.location.search);
+
+              // Set new or modify existing parameter value.
+              queryParams.set("q", "");
+
+              // Replace current querystring with the new one.
+              history.replaceState(null, null, "?"+queryParams.toString());
+              input.focus();
+            });
+          });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+          initSearchResetButtons('.p-search-box__reset');
+        });
+      </script>
+    </div>
   </div>
+</div>
+
+<div class="l-fluid-breakout__aside">
+  {% include "_filters.html" %}
+</div>
+
+<div class="l-fluid-breakout__main">
+  {% for spec in specs %}
+    {% with spec=spec %}
+      {% include "_card.html" %}
+    {% endwith %}
+  {% endfor %}
 </div>
 {% endblock content %}

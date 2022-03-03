@@ -1,54 +1,56 @@
-<div
-  class="spec-card spec-card--{{ spec.status|lower }} p-card col-4 u-no-padding"
-  data-authors="{{ spec.authors }}"
-  data-status="{{ spec.status }}"
-  data-team="{{ spec.folderName }}"
-  data-type="{{ spec.type }}"
->
-  <div class="spec-card__content p-card__inner">
-    <div class="spec-card__header">
-      <small class="spec-card__metadata-list">
-        <ul class="p-inline-list--middot u-no-margin--bottom">
-          <li class="p-inline-list__item">
-            {{ spec.index if spec.index|length == 5 else "Unknown" }}
-          </li>
-          <li class="p-inline-list__item">
-            {{ spec.folderName or "Unknown" }}
-          </li>
-          <li class="p-inline-list__item">
-            {{ spec.type if spec.type in ["Standard", "Informational", "Process"] else "Unknown" }}
-          </li>
-        </ul>
-      </small>
-      <div class="spec-card__chip-container">
-        {% if spec.status == "Approved" %}
-        <div class="p-chip--positive u-no-margin">Approved</div>
-        {% elif spec.status == "Pending Review" %}
-        <div class="p-chip--caution u-no-margin">Pending Review</div>
-        {% elif spec.status == "Drafting" or spec.status == "Braindump" %}
-        <div class="p-chip u-no-margin">{{ spec.status }}</div>
-        {% else %}
-        <div class="p-chip--negative u-no-margin">Unknown</div>
-        {% endif %}
+<div class="l-fluid-breakout__item">
+  <div
+    class="spec-card spec-card--{{ spec.status|lower }} p-card col-4 u-no-padding"
+    data-authors="{{ spec.authors }}"
+    data-status="{{ spec.status }}"
+    data-team="{{ spec.folderName }}"
+    data-type="{{ spec.type }}"
+  >
+    <div class="spec-card__content p-card__inner">
+      <div class="spec-card__header">
+        <small class="spec-card__metadata-list">
+          <ul class="p-inline-list--middot u-no-margin--bottom">
+            <li class="p-inline-list__item">
+              {{ spec.index if spec.index|length == 5 else "Unknown" }}
+            </li>
+            <li class="p-inline-list__item">
+              {{ spec.folderName or "Unknown" }}
+            </li>
+            <li class="p-inline-list__item">
+              {{ spec.type if spec.type in ["Standard", "Informational", "Process"] else "Unknown" }}
+            </li>
+          </ul>
+        </small>
+        <div class="spec-card__chip-container">
+          {% if spec.status == "Approved" %}
+          <div class="p-chip--positive u-no-margin">Approved</div>
+          {% elif spec.status == "Pending Review" %}
+          <div class="p-chip--caution u-no-margin">Pending Review</div>
+          {% elif spec.status == "Drafting" or spec.status == "Braindump" %}
+          <div class="p-chip u-no-margin">{{ spec.status }}</div>
+          {% else %}
+          <div class="p-chip--negative u-no-margin">Unknown</div>
+          {% endif %}
+        </div>
       </div>
-    </div>
-    <h3 class="p-heading--4 u-no-margin--bottom">
-      <a href="{{ spec.fileURL }}">{{ spec.title or "Unknown title" }}</a>
-    </h3>
-    <small>
-      <em>{{ spec.authors }}</em>
-    </small>
-    <p class="p-card__content">
-      <i class="p-icon--comments">Comments</i>
-      <small class="u-text--muted">
-        {{ spec.numberOfComments }} comments
-        {% if spec.openComments|int > 0 %}
-        ({{ spec.openComments }} unresolved)
-        {% endif %}
+      <h3 class="p-heading--4 u-no-margin--bottom">
+        <a href="{{ spec.fileURL }}">{{ spec.title or "Unknown title" }}</a>
+      </h3>
+      <small>
+        <em>{{ spec.authors }}</em>
       </small>
-    </p>
-  </div>
-  <div class="spec-card__footer p-card__inner">
-    <em class="u-align--right">Last edit: {{ spec.lastUpdated }}</em>
+      <p class="p-card__content">
+        <i class="p-icon--comments">Comments</i>
+        <small class="u-text--muted">
+          {{ spec.numberOfComments }} comments
+          {% if spec.openComments|int > 0 %}
+          ({{ spec.openComments }} unresolved)
+          {% endif %}
+        </small>
+      </p>
+    </div>
+    <div class="spec-card__footer p-card__inner">
+      <em class="u-align--right">Last edit: {{ spec.lastUpdated }}</em>
+    </div>
   </div>
 </div>
