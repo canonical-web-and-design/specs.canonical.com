@@ -9,6 +9,12 @@ $color-navigation-background: #772953;
   border-top: 3px solid #666;
 }
 
+.spec-card .p-chip {
+  margin: 0;
+  position: relative;
+  top:-.5rem;
+}
+
 .spec-card--drafting,
 .spec-card--braindump {
   border-top-color: $color-mid-dark !important;
