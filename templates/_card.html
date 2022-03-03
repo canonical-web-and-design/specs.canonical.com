@@ -38,7 +38,15 @@
     </p>
   </div>
   <div class="spec-card__footer p-card__inner">
+    {% if spec.status == "Approved" %}
+    <div class="p-label--positive">{{ spec.status }}</div>
+    {% elif spec.status == "Ready for approval" or spec.status == "Review" %}
+    <div class="p-label--caution">{{ spec.status }}</div>
+    {% elif spec.status == "< Braindump | Drafting | Pending Review >" or spec.status == "" %}
+    <div class="p-label--negative">{{ spec.status }}</div>
+    {% else %}
     <div class="p-label">{{ spec.status }}</div>
+    {% endif %}
     <em class="u-align--right">Last edit: {{ spec.lastUpated }}</em>
   </div>
 </div>
