@@ -1,15 +1,44 @@
+{% if spec.status == "Braindump" %}
+<div class="spec-card spec-card--braindump p-card col-4 u-no-padding">
+{% elif spec.status == "Drafting" %}
+<div class="spec-card spec-card--drafting p-card col-4 u-no-padding">
+{% elif spec.status == "Approved" %}
+<div class="spec-card spec-card--approved p-card col-4 u-no-padding">
+{% elif spec.status == "Ready for approval" or spec.status == "Review" %}
+<div class="spec-card spec-card--pending p-card col-4 u-no-padding">
+{% elif spec.status == "< Braindump | Drafting | Pending Review >" or spec.status == "" %}
+<div class="spec-card spec-card--error p-card col-4 u-no-padding">
+{% else %}
 <div class="spec-card p-card col-4 u-no-padding">
+{% endif %}
   <div class="spec-card__content p-card__inner">
+    <div class="u-float-right">
+      {% if spec.status == "Approved" %}
+      <div class="p-chip--positive">{{ spec.status }}</div>
+      {% elif spec.status == "Ready for approval" or spec.status == "Review" %}
+      <div class="p-chip--caution">{{ spec.status }}</div>
+      {% elif spec.status == "< Braindump | Drafting | Pending Review >" or spec.status == "" %}
+      <div class="p-chip--negative">{{ spec.status }}</div>
+      {% else %}
+      <div class="p-chip">{{ spec.status }}</div>
+      {% endif %}
+    </div>
     <ul class="p-inline-list--middot u-no-margin--bottom">
+      {% if spec.index %}
       <li class="p-inline-list__item">
         {{ spec.index }}
       </li>
+      {% endif %}
+      {% if spec.folderName %}
       <li class="p-inline-list__item">
         {{ spec.folderName }}
       </li>
+      {% endif %}
+      {% if spec.type %}
       <li class="p-inline-list__item">
         {{ spec.type }}
       </li>
+      {% endif %}
     </ul>
     <h3 class="p-heading--4 u-no-margin--bottom">
       <a href="{{ spec.fileURL }}">{{ spec.title }}</a>
@@ -20,7 +49,6 @@
     </p>
   </div>
   <div class="spec-card__footer p-card__inner">
-    <div class="p-label">{{ spec.status }}</div>
     <em class="u-align--right">Last edit: {{ spec.lastUpated }}</em>
   </div>
 </div>
