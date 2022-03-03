@@ -195,7 +195,6 @@
         filterCards();
       }
 
-      generateOptions(contributorSelect, contributorOptions);
       teamSelect.addEventListener("change", (e) =>
         updateValueFilter(e.target.value, "team")
       );
@@ -223,7 +222,10 @@
       processTypeCheckbox.addEventListener("change", (e) =>
         updateListFilter(e.target.checked, "types", "Process")
       );
-      init();
+      document.addEventListener("DOMContentLoaded", () => {
+        generateOptions(contributorSelect, contributorOptions);
+        init();
+      });
     </script>
   </body>
 </html>
