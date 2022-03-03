@@ -12,6 +12,17 @@
 <div class="spec-card p-card col-4 u-no-padding">
 {% endif %}
   <div class="spec-card__content p-card__inner">
+    <div class="u-float-right">
+      {% if spec.status == "Approved" %}
+      <div class="p-label--positive">{{ spec.status }}</div>
+      {% elif spec.status == "Ready for approval" or spec.status == "Review" %}
+      <div class="p-label--caution">{{ spec.status }}</div>
+      {% elif spec.status == "< Braindump | Drafting | Pending Review >" or spec.status == "" %}
+      <div class="p-label--negative">{{ spec.status }}</div>
+      {% else %}
+      <div class="p-label">{{ spec.status }}</div>
+      {% endif %}
+    </div>
     <ul class="p-inline-list--middot u-no-margin--bottom">
       {% if spec.index %}
       <li class="p-inline-list__item">
@@ -38,15 +49,6 @@
     </p>
   </div>
   <div class="spec-card__footer p-card__inner">
-    {% if spec.status == "Approved" %}
-    <div class="p-label--positive">{{ spec.status }}</div>
-    {% elif spec.status == "Ready for approval" or spec.status == "Review" %}
-    <div class="p-label--caution">{{ spec.status }}</div>
-    {% elif spec.status == "< Braindump | Drafting | Pending Review >" or spec.status == "" %}
-    <div class="p-label--negative">{{ spec.status }}</div>
-    {% else %}
-    <div class="p-label">{{ spec.status }}</div>
-    {% endif %}
     <em class="u-align--right">Last edit: {{ spec.lastUpated }}</em>
   </div>
 </div>
