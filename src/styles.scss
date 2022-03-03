@@ -1,10 +1,29 @@
-@import "settings";
+$color-navigation-background: #772953;
+
 @import "vanilla-framework";
 @include vanilla;
 
 .spec-card {
   display: flex;
   flex-direction: column;
+  border-top: 3px solid #666;
+}
+
+.spec-card--drafting,
+.spec-card--braindump {
+  border-top-color: $color-mid-dark !important;
+}
+
+.spec-card--pending {
+  border-top-color: $color-caution !important;
+}
+
+.spec-card--approved {
+  border-top-color: $color-positive !important;
+}
+
+.spec-card--error {
+  border-top-color: $color-negative !important;
 }
 
 .spec-card__content {
@@ -31,3 +50,4 @@
   position: sticky;
   top: 0;
 }
+
