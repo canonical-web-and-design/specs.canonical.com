@@ -1,5 +1,6 @@
 # from sqlalchemy import null
 import json
+from datetime import datetime
 import flask
 
 # import requests
@@ -36,6 +37,13 @@ def get_value_row(row):
 
     return ""
 
+def get_date_value_row(row):
+    if row:
+        if "formattedValue" in row:
+            return datetime.strptime(row["formattedValue"], '%m/%d/%Y %H:%M:%S').strftime('%d %b %Y')
+
+    return ""
+
 
 def index_in_list(a_list, index):
     return index < len(a_list)
@@ -54,14 +62,12 @@ def index():
     specs = []
     for row in res["sheets"][0]["data"][0]["rowData"]:
         if "values" in row:
-            print(
-                get_value_row(
-                    row["values"][4]
-                    if index_in_list(row["values"], 4)
-                    else None
-                )
-            )
             spec = {
+                "folderName": get_value_row(
+                    row["values"][0]
+                    if index_in_list(row["values"], 0)
+                    else None
+                ),
                 "fileName": get_value_row(
                     row["values"][1]
                     if index_in_list(row["values"], 1)
@@ -102,12 +108,12 @@ def index():
                     if index_in_list(row["values"], 8)
                     else None
                 ),
-                "created": get_value_row(
+                "created": get_date_value_row(
                     row["values"][9]
                     if index_in_list(row["values"], 9)
                     else None
                 ),
-                "lastUpated": get_value_row(
+                "lastUpated": get_date_value_row(
                     row["values"][10]
                     if index_in_list(row["values"], 10)
                     else None
@@ -115,6 +121,11 @@ def index():
                 "numberOfComments": get_value_row(
                     row["values"][11]
                     if index_in_list(row["values"], 11)
+                    else None
+                ),
+                "openComments":  get_value_row(
+                    row["values"][12]
+                    if index_in_list(row["values"], 12)
                     else None
                 ),
             }
