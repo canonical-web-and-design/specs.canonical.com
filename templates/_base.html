@@ -62,6 +62,7 @@
       const processTypeCheckbox = document.querySelector("#processType");
       const authorSelect = document.querySelector("#authorSelect");
       const teamSelect = document.querySelector("#teamSelect");
+      const filteredCount = document.querySelector(".filtered-count");
       const specs = {{ specs|tojson }};
       const filters = {
         author: "all",
@@ -83,6 +84,7 @@
       function filterCards() {
         const { author, statuses, team, types } = filters;
         const cards = document.querySelectorAll(".spec-card");
+        let count = 0;
         cards.forEach((card) => {
           const inAuthor =
             author === "all" || card.dataset.authors.includes(author);
@@ -98,9 +100,11 @@
             types.length === 0 || types.includes(card.dataset.type);
           if (inAuthor && inStatuses && inTeam && inTypes) {
             card.parentNode.classList.remove("u-hide");
+            count++;
           } else {
             card.parentNode.classList.add("u-hide");
           }
+          filteredCount.innerHTML = count;
         });
       }
 
