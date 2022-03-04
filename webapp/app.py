@@ -52,7 +52,7 @@ def index_in_list(a_list, index):
 @app.route("/")
 def index():
     SHEET = "Specs"
-    RANGE = "A2:L1000"
+    RANGE = "A2:M1000"
     res = sheet.get(
         spreadsheetId=SPREADSHEET_ID,
         ranges=[f"{SHEET}!{RANGE}"],
@@ -123,7 +123,7 @@ def index():
                     if index_in_list(row["values"], 11)
                     else None
                 ),
-                "openComments":  get_value_row(
+                "openComments": get_value_row(
                     row["values"][12]
                     if index_in_list(row["values"], 12)
                     else None
