@@ -88,9 +88,9 @@
           const inTypes =
             types.length === 0 || types.includes(card.dataset.type);
           if (inContributor && inStatuses && inTeam && inTypes) {
-            card.classList.remove("u-hide");
+            card.parentNode.classList.remove("u-hide");
           } else {
-            card.classList.add("u-hide");
+            card.parentNode.classList.add("u-hide");
           }
         });
       }
