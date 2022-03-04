@@ -55,39 +55,48 @@
       const pendingReviewStatusCheckbox = document.querySelector("#pendingReviewStatus");
       const draftingStatusCheckbox = document.querySelector("#draftingStatus");
       const braindumpStatusCheckbox = document.querySelector("#braindumpStatus");
+      const unknownStatusCheckbox = document.querySelector("#unknownStatus");
       const standardTypeCheckbox = document.querySelector("#standardType");
       const informationalTypeCheckbox =
         document.querySelector("#informationalType");
       const processTypeCheckbox = document.querySelector("#processType");
-      const contributorSelect = document.querySelector("#contributorSelect");
+      const authorSelect = document.querySelector("#authorSelect");
       const teamSelect = document.querySelector("#teamSelect");
       const specs = {{ specs|tojson }};
       const filters = {
-        contributor: "all",
+        author: "all",
         statuses: [],
         team: "all",
         types: [],
       };
-      const contributorOptions = specs.reduce((acc, spec) => {
-        const exists = acc.some((option) => option === spec.authors);
-        if (!exists) {
-          acc.push(spec.authors);
-        }
+      const authorOptions = specs.reduce((acc, spec) => {
+        const authors = spec.authors.split(",").map((author) => author.trim());
+        authors.forEach((author) => {
+          const exists = acc.some((option) => option === author);
+          if (author && !exists) {
+            acc.push(author);
+          }
+        })
         return acc;
       }, []);
 
       function filterCards() {
-        const { contributor, statuses, team, types } = filters;
+        const { author, statuses, team, types } = filters;
         const cards = document.querySelectorAll(".spec-card");
         cards.forEach((card) => {
-          const inContributor =
-            contributor === "all" || card.dataset.authors === contributor;
+          const inAuthor =
+            author === "all" || card.dataset.authors.includes(author);
           const inStatuses =
-            statuses.length === 0 || statuses.includes(card.dataset.status);
+            statuses.length === 0 ||
+            statuses.includes(card.dataset.status) ||
+            (statuses.some((status) => status === "Unknown") &&
+              !["Approved", "Pending Review", "Drafting", "Braindump"].includes(
+                card.dataset.status
+              ));
           const inTeam = team === "all" || card.dataset.team === team;
           const inTypes =
             types.length === 0 || types.includes(card.dataset.type);
-          if (inContributor && inStatuses && inTeam && inTypes) {
+          if (inAuthor && inStatuses && inTeam && inTypes) {
             card.parentNode.classList.remove("u-hide");
           } else {
             card.parentNode.classList.add("u-hide");
@@ -128,11 +137,12 @@
         if (pendingReviewStatusCheckbox.checked) statusesFilter.push("Pending Review");
         if (draftingStatusCheckbox.checked) statusesFilter.push("Drafting");
         if (braindumpStatusCheckbox.checked) statusesFilter.push("Braindump");
+        if (unknownStatusCheckbox.checked) statusesFilter.push("Unknown");
         if (standardTypeCheckbox.checked) typesFilter.push("Standard");
         if (informationalTypeCheckbox.checked)
           typesFilter.push("Informational");
         if (processTypeCheckbox.checked) typesFilter.push("Process");
-        filters.contributor = contributorSelect.value;
+        filters.author = authorSelect.value;
         filters.statuses = statusesFilter;
         filters.team = teamSelect.value;
         filters.types = typesFilter;
@@ -142,8 +152,8 @@
       teamSelect.addEventListener("change", (e) =>
         updateValueFilter(e.target.value, "team")
       );
-      contributorSelect.addEventListener("change", (e) =>
-        updateValueFilter(e.target.value, "contributor")
+      authorSelect.addEventListener("change", (e) =>
+        updateValueFilter(e.target.value, "author")
       );
       approvedStatusCheckbox.addEventListener("change", (e) =>
         updateListFilter(e.target.checked, "statuses", "Approved")
@@ -157,6 +167,9 @@
       braindumpStatusCheckbox.addEventListener("change", (e) =>
         updateListFilter(e.target.checked, "statuses", "Braindump")
       );
+      unknownStatusCheckbox.addEventListener("change", (e) =>
+        updateListFilter(e.target.checked, "statuses", "Unknown")
+      );
       standardTypeCheckbox.addEventListener("change", (e) =>
         updateListFilter(e.target.checked, "types", "Standard")
       );
@@ -167,7 +180,7 @@
         updateListFilter(e.target.checked, "types", "Process")
       );
       document.addEventListener("DOMContentLoaded", () => {
-        generateOptions(contributorSelect, contributorOptions);
+        generateOptions(authorSelect, authorOptions);
         init();
       });
     </script>
