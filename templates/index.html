@@ -4,7 +4,7 @@
 <div class="l-fluid-breakout__toolbar u-no-margin--bottom">
   <div class="l-fluid-breakout__toolbar-items">
     <div class="l-fluid-breakout__toolbar-item">
-      {{ specs|length }} specs
+      <span class="filtered-count"></span>&nbsp;specs
     </div>
     <div class="l-fluid-breakout__toolbar-item">
       <form class="p-search-box u-no-margin--bottom">
@@ -55,7 +55,7 @@
   </div>
 </div>
 
-<div class="l-fluid-breakout__aside sticky-sidebar">
+<div class="l-fluid-breakout__aside ">
   {% include "_filters.html" %}
 </div>
 
