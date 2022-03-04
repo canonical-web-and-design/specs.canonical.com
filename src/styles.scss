@@ -10,6 +10,7 @@ $increase-font-size-on-larger-screens: false;
   flex-direction: column;
   border-top: 3px solid #666;
   border-top-color: $color-negative !important;
+  height: 100%;
 }
 
 .spec-card__header {
@@ -70,6 +71,7 @@ $increase-font-size-on-larger-screens: false;
 .l-fluid-breakout {
   .l-fluid-breakout__main {
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-gap: 1rem;
   }
 
   .l-fluid-breakout__toolbar {
