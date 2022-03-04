@@ -67,10 +67,20 @@ $increase-font-size-on-larger-screens: false;
   top: 0;
 }
 
-.l-fluid-breakout .l-fluid-breakout__main {
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+.l-fluid-breakout {
+  .l-fluid-breakout__main {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+
+  .l-fluid-breakout__toolbar {
+    padding: 2rem 0;
+  }
 }
 
 .p-navigation__row {
   max-width: 100%;
+}
+
+.p-search-box__input {
+  width: 20rem;
 }
