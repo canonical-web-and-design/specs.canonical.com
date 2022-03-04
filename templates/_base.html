@@ -36,68 +36,20 @@
         </div>
       </div>
     </header>
-    <main class="p-content">
-      <div class="p-divider row u-no-margin--bottom">
-        <div class="p-divider__block col-4 sticky-sidebar">
-          {% include "_filters.html" %}
-        </div>
-        <div class="p-divider__block col-8">
-          <div class="p-strip is-shallow">
-            <div class="row">
-              <div class="col-12">
-                <form class="p-search-box u-no-margin--bottom">
-                  <label class="u-off-screen" for="q">Search</label>
-                  <input
-                    type="search"
-                    id="q"
-                    class="p-search-box__input"
-                    name="q"
-                    placeholder="Search"
-                    required=""
-                    autocomplete="on"
-                    value="{{ query }}"
-                  />
-                  <button type="reset" class="p-search-box__reset">
-                    <i class="p-icon--close">Close</i>
-                  </button>
-                  <button type="submit" class="p-search-box__button">
-                    <i class="p-icon--search">Search</i>
-                  </button>
-                </form>
-                <script>
-                function initSearchResetButtons(selector) {
-                  var resetButtons = [].slice.call(document.querySelectorAll(selector));
 
-                  resetButtons.forEach(function (button) {
-                    button.addEventListener('click', function () {
-                      var input = button.parentNode.querySelector('input');
-                      location.href = '/';
-                      input.focus();
-                    });
-                  });
-                }
+    <main class="l-fluid-breakout">
+      {% block content %}{% endblock %}
+    </main>
 
-                document.addEventListener('DOMContentLoaded', function () {
-                  initSearchResetButtons('.p-search-box__reset');
-                });
-                </script>
-              </div>
-            </div>
-          </div>
-          {% block content %}{% endblock %}
+    <hr class="u-no-margin--bottom" />
+    <footer class="p-strip is-shallow">
+      <div class="row">
+        <div class="col-12">
+          © {{ current_year }} Canonical Ltd. Ubuntu and Canonical are
+          registered trademarks of Canonical Ltd.
         </div>
       </div>
-
-      <hr class="u-no-margin--bottom" />
-      <footer class="p-strip is-shallow">
-        <div class="row">
-          <div class="col-12">
-            © {{ current_year }} Canonical Ltd. Ubuntu and Canonical are
-            registered trademarks of Canonical Ltd.
-          </div>
-        </div>
-      </footer>
-    </main>
+    </footer>
     <script>
       const approvedStatusCheckbox = document.querySelector("#approvedStatus");
       const pendingReviewStatusCheckbox = document.querySelector("#pendingReviewStatus");
@@ -136,9 +88,9 @@
           const inTypes =
             types.length === 0 || types.includes(card.dataset.type);
           if (inContributor && inStatuses && inTeam && inTypes) {
-            card.classList.remove("u-hide");
+            card.parentNode.classList.remove("u-hide");
           } else {
-            card.classList.add("u-hide");
+            card.parentNode.classList.add("u-hide");
           }
         });
       }
