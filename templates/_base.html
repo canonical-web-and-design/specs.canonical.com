@@ -81,6 +81,8 @@
         return acc;
       }, []);
 
+      const authorQuery = new URLSearchParams(window.location.search).get('author');
+
       function filterCards() {
         const { author, statuses, team, types } = filters;
         const cards = document.querySelectorAll(".spec-card");
@@ -113,6 +115,9 @@
           const optionEl = document.createElement("option");
           optionEl.value = option;
           optionEl.text = option;
+          if (authorQuery && authorQuery === option) {
+            optionEl.selected = true;
+          }
           select.add(optionEl, null);
         });
       }
@@ -132,6 +137,13 @@
           filters[filterKey] = value;
           filterCards();
         }
+        updateFilterQuery(filterKey, value);
+      }
+
+      function updateFilterQuery(key, value) {
+        var queryParams = new URLSearchParams(window.location.search);
+        queryParams.set(key, value);
+        history.replaceState(null, null, "?"+queryParams.toString());
       }
 
       function init() {

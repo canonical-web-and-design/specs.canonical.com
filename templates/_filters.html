@@ -1,45 +1,46 @@
+
 <form>
   <label for="teamSelect">Team</label>
   <select name="teamSelect" id="teamSelect">
     <option value="all">All teams</option>
-    <option value="AC - Anbox Cloud">AC - Anbox Cloud</option>
-    <option value="CE - Ceph">CE - Ceph</option>
-    <option value="CO - Community">CO - Community</option>
-    <option value="CP - CPC">CP - CPC</option>
-    <option value="DA - Data Platform">DA - Data Platform</option>
-    <option value="ED - EdgeX">ED - EdgeX</option>
-    <option value="FO - Foundations">FO - Foundations</option>
-    <option value="ID - Identity">ID - Identity</option>
-    <option value="JU - Juju">JU - Juju</option>
-    <option value="KE - Kernel">KE - Kernel</option>
-    <option value="KO - KernOS">KO - KernOS</option>
-    <option value="KU - Kubernetes">KU - Kubernetes</option>
-    <option value="LA - Landscape">LA - Landscape</option>
-    <option value="LP - Launchpad">LP - Launchpad</option>
-    <option value="LX - LXD">LX - LXD</option>
-    <option value="MA - MAAS">MA - MAAS</option>
-    <option value="MI - Mir">MI - Mir</option>
-    <option value="MU - Multipass">MU - Multipass</option>
-    <option value="OB - Observability Platform">
+    <option value="AC - Anbox Cloud" {% if request.args.get("team") == "AC - Anbox Cloud" %}selected{% endif %}>AC - Anbox Cloud</option>
+    <option value="CE - Ceph" {% if request.args.get("team") == "CE - Ceph" %}selected{% endif %}>CE - Ceph</option>
+    <option value="CO - Community" {% if request.args.get("team") == "CO - Community" %}selected{% endif %}>CO - Community</option>
+    <option value="CP - CPC" {% if request.args.get("team") == "CP - CPC" %}selected{% endif %}>CP - CPC</option>
+    <option value="DA - Data Platform" {% if request.args.get("team") == "DA - Data Platform" %}selected{% endif %}>DA - Data Platform</option>
+    <option value="ED - EdgeX" {% if request.args.get("team") == "ED - EdgeX" %}selected{% endif %}>ED - EdgeX</option>
+    <option value="FO - Foundations" {% if request.args.get("team") == "FO - Foundations" %}selected{% endif %}>FO - Foundations</option>
+    <option value="ID - Identity" {% if request.args.get("team") == "ID - Identity" %}selected{% endif %}>ID - Identity</option>
+    <option value="JU - Juju" {% if request.args.get("team") == "JU - Juju" %}selected{% endif %}>JU - Juju</option>
+    <option value="KE - Kernel" {% if request.args.get("team") == "KE - Kernel" %}selected{% endif %}>KE - Kernel</option>
+    <option value="KO - KernOS" {% if request.args.get("team") == "KO - KernOS" %}selected{% endif %}>KO - KernOS</option>
+    <option value="KU - Kubernetes" {% if request.args.get("team") == "KU - Kubernetes" %}selected{% endif %}>KU - Kubernetes</option>
+    <option value="LA - Landscape" {% if request.args.get("team") == "LA - Landscape" %}selected{% endif %}>LA - Landscape</option>
+    <option value="LP - Launchpad" {% if request.args.get("team") == "LP - Launchpad" %}selected{% endif %}>LP - Launchpad</option>
+    <option value="LX - LXD" {% if request.args.get("team") == "LX - LXD" %}selected{% endif %}>LX - LXD</option>
+    <option value="MA - MAAS" {% if request.args.get("team") == "MA - MAAS" %}selected{% endif %}>MA - MAAS</option>
+    <option value="MI - Mir" {% if request.args.get("team") == "MI - Mir" %}selected{% endif %}>MI - Mir</option>
+    <option value="MU - Multipass" {% if request.args.get("team") == "MU - Multipass" %}selected{% endif %}>MU - Multipass</option>
+    <option value="OB - Observability Platform" {% if request.args.get("team") == "OB - Observability Platform" %}selected{% endif %}>
       OB - Observability Platform
     </option>
-    <option value="OM - OSM">OM - OSM</option>
-    <option value="OP - Operator Engineering">OP - Operator Engineering</option>
-    <option value="OS - Openstack">OS - Openstack</option>
-    <option value="RO - Robotics">RO - Robotics</option>
-    <option value="SD - SnapD">SD - SnapD</option>
-    <option value="SE - Security">SE - Security</option>
-    <option value="SN - Snap Store">SN - Snap Store</option>
-    <option value="SR - Server Commercial Engineering">
+    <option value="OM - OSM" {% if request.args.get("team") == "OM - OSM" %}selected{% endif %}>OM - OSM</option>
+    <option value="OP - Operator Engineering" {% if request.args.get("team") == "OP - Operator Engineering" %}selected{% endif %}>OP - Operator Engineering</option>
+    <option value="OS - Openstack" {% if request.args.get("team") == "OS - Openstack" %}selected{% endif %}>OS - Openstack</option>
+    <option value="RO - Robotics" {% if request.args.get("team") == "RO - Robotics" %}selected{% endif %}>RO - Robotics</option>
+    <option value="SD - SnapD" {% if request.args.get("team") == "SD - SnapD" %}selected{% endif %}>SD - SnapD</option>
+    <option value="SE - Security" {% if request.args.get("team") == "SE - Security" %}selected{% endif %}>SE - Security</option>
+    <option value="SN - Snap Store" {% if request.args.get("team") == "SN - Snap Store" %}selected{% endif %}>SN - Snap Store</option>
+    <option value="SR - Server Commercial Engineering" {% if request.args.get("team") == "SR - Server Commercial Engineering" %}selected{% endif %}>
       SR - Server Commercial Engineering
     </option>
-    <option value="ST - Starcraft">ST - Starcraft</option>
-    <option value="TE - Telco">TE - Telco</option>
-    <option value="UC - Ubuntu Core">UC - Ubuntu Core</option>
-    <option value="UD - Ubuntu Desktop">UD - Ubuntu Desktop</option>
-    <option value="US - Ubuntu Server">US - Ubuntu Server</option>
-    <option value="WD - Web & Design">WD - Web & Design</option>
-    <option value="WS - WSL">WS - WSL</option>
+    <option value="ST - Starcraft" {% if request.args.get("team") == "ST - Starcraft" %}selected{% endif %}>ST - Starcraft</option>
+    <option value="TE - Telco" {% if request.args.get("team") == "TE - Telco" %}selected{% endif %}>TE - Telco</option>
+    <option value="UC - Ubuntu Core" {% if request.args.get("team") == "UC - Ubuntu Core" %}selected{% endif %}>UC - Ubuntu Core</option>
+    <option value="UD - Ubuntu Desktop" {% if request.args.get("team") == "UD - Ubuntu Desktop" %}selected{% endif %}>UD - Ubuntu Desktop</option>
+    <option value="US - Ubuntu Server" {% if request.args.get("team") == "US - Ubuntu Server" %}selected{% endif %}>US - Ubuntu Server</option>
+    <option value="WD - Web & Design" {% if request.args.get("team") == "WD - Web & Design" %}selected{% endif %}>WD - Web & Design</option>
+    <option value="WS - WSL" {% if request.args.get("team") == "WS - WSL" %}selected{% endif %}>WS - WSL</option>
   </select>
   <p class="u-no-margin--bottom">Status</p>
   <label class="p-checkbox">
