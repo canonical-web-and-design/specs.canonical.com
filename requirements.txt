@@ -1,2 +1,2 @@
-canonicalwebteam.flask-base==1.0.1
+canonicalwebteam.flask-base==1.0.2
 google-api-python-client==1.8.2
