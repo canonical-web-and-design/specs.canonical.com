@@ -2,6 +2,8 @@
 import json
 from datetime import datetime
 import flask
+from webapp.sso import init_sso
+
 
 # import requests
 import os
@@ -26,6 +28,8 @@ app = FlaskBase(
     static_folder="../static",
 )
 
+init_sso(app)
+
 
 def get_value_row(row):
     if row:
@@ -37,10 +41,13 @@ def get_value_row(row):
 
     return ""
 
+
 def get_date_value_row(row):
     if row:
         if "formattedValue" in row:
-            return datetime.strptime(row["formattedValue"], '%m/%d/%Y %H:%M:%S').strftime('%d %b %Y')
+            return datetime.strptime(
+                row["formattedValue"], "%m/%d/%Y %H:%M:%S"
+            ).strftime("%d %b %Y")
 
     return ""
 
