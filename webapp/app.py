@@ -56,6 +56,12 @@ def index_in_list(a_list, index):
     return index < len(a_list)
 
 
+def is_spec(row):
+    """Check that file name exists."""
+
+    return "userEnteredValue" in row[1]
+
+
 @app.route("/")
 def index():
     SHEET = "Specs"
@@ -68,7 +74,7 @@ def index():
 
     specs = []
     for row in res["sheets"][0]["data"][0]["rowData"]:
-        if "values" in row:
+        if "values" in row and is_spec(row["values"]):
             spec = {
                 "folderName": get_value_row(
                     row["values"][0]
