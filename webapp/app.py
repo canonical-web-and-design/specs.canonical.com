@@ -146,7 +146,7 @@ def index():
 
             specs.append(spec)
 
-            if spec["folderName"] not in teams:
+            if spec["folderName"] and spec["folderName"] not in teams:
                 teams.append(spec["folderName"])
 
     query = flask.request.args.get("q", "").strip()
