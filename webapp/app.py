@@ -73,6 +73,7 @@ def index():
     ).execute()
 
     specs = []
+    teams = []
     for row in res["sheets"][0]["data"][0]["rowData"]:
         if "values" in row and is_spec(row["values"]):
             spec = {
@@ -145,6 +146,9 @@ def index():
 
             specs.append(spec)
 
+            if spec["folderName"] not in teams:
+                teams.append(spec["folderName"])
+
     query = flask.request.args.get("q", "").strip()
 
     filtered_specs = []
@@ -158,4 +162,6 @@ def index():
 
         specs = filtered_specs
 
-    return flask.render_template("index.html", specs=specs, query=query)
+    return flask.render_template(
+        "index.html", specs=specs, teams=teams, query=query
+    )
