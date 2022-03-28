@@ -6,12 +6,12 @@ env:
   - name: SENTRY_DSN
     value: https://f51f18282e7d44bebe6cc268ba96f7a2@sentry.is.canonical.com//49
 
-  - name: GOOGLE_PRIVATE_KEY_ID
+  - name: PRIVATE_KEY_ID
     secretKeyRef:
       key: private-key-id
       name: google-private-key-id
 
-  - name: GOOGLE_PRIVATE_KEY
+  - name: PRIVATE_KEY
     secretKeyRef:
       key: private-key
       name: google-private-key
