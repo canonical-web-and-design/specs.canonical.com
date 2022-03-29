@@ -4,7 +4,7 @@ image: prod-comms.docker-registry.canonical.com/specs.canonical.com
 
 env:
   - name: SENTRY_DSN
-    value: https://f51f18282e7d44bebe6cc268ba96f7a2@sentry.is.canonical.com//49
+    value: https://e38013698989400884cce7bd9d862af3@sentry.is.canonical.com//51
 
   - name: PRIVATE_KEY_ID
     secretKeyRef:
