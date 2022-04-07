@@ -51,7 +51,11 @@ def init_sso(app):
     def before_request():
         if flask.request.path in ["/login", "/logout"]:
             return
-
+        if (
+            flask.request.path.startswith("/_status")
+            or flask.request.path.startswith("/static")
+        ):
+            return
         if "openid" not in flask.session:
             return flask.redirect("/login?next=" + flask.request.path)
 
