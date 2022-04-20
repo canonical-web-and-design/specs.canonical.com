@@ -15,7 +15,7 @@ class DiscoveryCache:
     """
     Unix file-based cache for use with the API Discovery service
     See https://github.com/googleapis/google-api-python-client/issues/325#issuecomment-419387788
-    """
+    """  # noqa
 
     def filename(self, url):
         return os.path.join(
@@ -48,8 +48,13 @@ def get_sheet():
         "client_id": "112404606310881291739",
         "auth_uri": "https://accounts.google.com/o/oauth2/auth",
         "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/specs-reader%40roadmap-270011.iam.gserviceaccount.com",
+        "auth_provider_x509_cert_url": (
+            "https://www.googleapis.com/oauth2/v1/certs"
+        ),
+        "client_x509_cert_url": (
+            "https://www.googleapis.com/robot/v1/metadata"
+            "/x509/specs-reader%40roadmap-270011.iam.gserviceaccount.com"
+        ),
     }
     creds = service_account.Credentials.from_service_account_info(
         service_account_info, scopes=SCOPES

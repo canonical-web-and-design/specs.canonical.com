@@ -9,6 +9,12 @@ class TestRoutes(unittest.TestCase):
         """
         app.testing = True
         self.client = app.test_client()
+        with self.client.session_transaction() as sess:
+            sess["openid"] = {
+                "identity_url": "localhost",
+                "email": "testing@ubuntu.com",
+                "fullname": "Test user",
+            }
 
     def test_homepage(self):
         """
