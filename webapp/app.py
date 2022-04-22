@@ -1,15 +1,11 @@
-# from sqlalchemy import null
-import json
-from datetime import datetime
-import flask
-from webapp.sso import init_sso
-
-
-# import requests
 import os
+from datetime import datetime
 
+import flask
 from canonicalwebteam.flask_base.app import FlaskBase
+
 from webapp.spreasheet import get_sheet
+from webapp.sso import init_sso
 
 DEPLOYMENT_ID = os.getenv(
     "DEPLOYMENT_ID",
@@ -31,23 +27,18 @@ app = FlaskBase(
 init_sso(app)
 
 
-def get_value_row(row):
+def get_value_row(row, type):
     if row:
-        if "userEnteredValue" in row:
+        if type == datetime:
+            if "formattedValue" in row:
+                return datetime.strptime(
+                    row["formattedValue"], "%m/%d/%Y %H:%M:%S"
+                ).strftime("%d %b %Y")
+        elif "userEnteredValue" in row:
             if "stringValue" in row["userEnteredValue"]:
-                return row["userEnteredValue"]["stringValue"]
+                return type(row["userEnteredValue"]["stringValue"])
             if "numberValue" in row["userEnteredValue"]:
-                return row["userEnteredValue"]["numberValue"]
-
-    return ""
-
-
-def get_date_value_row(row):
-    if row:
-        if "formattedValue" in row:
-            return datetime.strptime(
-                row["formattedValue"], "%m/%d/%Y %H:%M:%S"
-            ).strftime("%d %b %Y")
+                return type(row["userEnteredValue"]["numberValue"])
 
     return ""
 
@@ -66,6 +57,21 @@ def is_spec(row):
 def index():
     SHEET = "Specs"
     RANGE = "A2:M1000"
+    COLUMNS = [
+        ("folderName", str),
+        ("fileName", str),
+        ("fileID", str),
+        ("fileURL", str),
+        ("index", str),
+        ("title", str),
+        ("status", str),
+        ("authors", str),
+        ("type", str),
+        ("created", datetime),
+        ("lastUpdated", datetime),
+        ("numberOfComments", int),
+        ("openComments", int),
+    ]
     res = sheet.get(
         spreadsheetId=SPREADSHEET_ID,
         ranges=[f"{SHEET}!{RANGE}"],
@@ -73,82 +79,24 @@ def index():
     ).execute()
 
     specs = []
-    teams = []
+    teams = set()
     for row in res["sheets"][0]["data"][0]["rowData"]:
         if "values" in row and is_spec(row["values"]):
-            spec = {
-                "folderName": get_value_row(
-                    row["values"][0]
-                    if index_in_list(row["values"], 0)
-                    else None
-                ),
-                "fileName": get_value_row(
-                    row["values"][1]
-                    if index_in_list(row["values"], 1)
-                    else None
-                ),
-                "fileID": get_value_row(
-                    row["values"][2]
-                    if index_in_list(row["values"], 2)
-                    else None
-                ),
-                "fileURL": get_value_row(
-                    row["values"][3]
-                    if index_in_list(row["values"], 3)
-                    else None
-                ),
-                "index": get_value_row(
-                    row["values"][4]
-                    if index_in_list(row["values"], 4)
-                    else None
-                ),
-                "title": get_value_row(
-                    row["values"][5]
-                    if index_in_list(row["values"], 5)
-                    else None
-                ),
-                "status": get_value_row(
-                    row["values"][6]
-                    if index_in_list(row["values"], 6)
-                    else None
-                ),
-                "authors": get_value_row(
-                    row["values"][7]
-                    if index_in_list(row["values"], 7)
-                    else None
-                ),
-                "type": get_value_row(
-                    row["values"][8]
-                    if index_in_list(row["values"], 8)
-                    else None
-                ),
-                "created": get_date_value_row(
-                    row["values"][9]
-                    if index_in_list(row["values"], 9)
-                    else None
-                ),
-                "lastUpdated": get_date_value_row(
-                    row["values"][10]
-                    if index_in_list(row["values"], 10)
-                    else None
-                ),
-                "numberOfComments": get_value_row(
-                    row["values"][11]
-                    if index_in_list(row["values"], 11)
-                    else None
-                ),
-                "openComments": get_value_row(
-                    row["values"][12]
-                    if index_in_list(row["values"], 12)
-                    else None
-                ),
-            }
+            spec = {}
+            for column_index in range(len(COLUMNS)):
+                (column, type) = COLUMNS[column_index]
+                spec[column] = get_value_row(
+                    row["values"][column_index]
+                    if index_in_list(row["values"], column_index)
+                    else None,
+                    type,
+                )
 
             specs.append(spec)
 
-            if spec["folderName"] and spec["folderName"] not in teams:
-                teams.append(spec["folderName"])
-
+            if spec["folderName"]:
+                teams.add(spec["folderName"])
+    teams = sorted(teams)
     query = flask.request.args.get("q", "").strip()
 
     filtered_specs = []
