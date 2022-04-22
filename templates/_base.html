@@ -37,9 +37,7 @@
       </div>
     </header>
 
-    <main class="l-fluid-breakout">
-      {% block content %}{% endblock %}
-    </main>
+    <main class="l-fluid-breakout">{% block content %}{% endblock %}</main>
 
     <hr class="u-no-margin--bottom" />
     <footer class="p-strip is-shallow">
@@ -52,9 +50,12 @@
     </footer>
     <script>
       const approvedStatusCheckbox = document.querySelector("#approvedStatus");
-      const pendingReviewStatusCheckbox = document.querySelector("#pendingReviewStatus");
+      const pendingReviewStatusCheckbox = document.querySelector(
+        "#pendingReviewStatus"
+      );
       const draftingStatusCheckbox = document.querySelector("#draftingStatus");
-      const braindumpStatusCheckbox = document.querySelector("#braindumpStatus");
+      const braindumpStatusCheckbox =
+        document.querySelector("#braindumpStatus");
       const unknownStatusCheckbox = document.querySelector("#unknownStatus");
       const standardTypeCheckbox = document.querySelector("#standardType");
       const informationalTypeCheckbox =
@@ -63,12 +64,14 @@
       const authorSelect = document.querySelector("#authorSelect");
       const teamSelect = document.querySelector("#teamSelect");
       const filteredCount = document.querySelector(".filtered-count");
-      const specs = {{ specs|tojson }};
+      const searchBoxInput = document.querySelector(".p-search-box__input");
+      const specs = {{ specs | tojson }};
       const filters = {
         author: "all",
         statuses: [],
         team: "all",
         types: [],
+        query: "",
       };
       const authorOptions = specs.reduce((acc, spec) => {
         const authors = spec.authors.split(",").map((author) => author.trim());
@@ -77,14 +80,16 @@
           if (author && !exists) {
             acc.push(author);
           }
-        })
+        });
         return acc;
       }, []);
 
-      const authorQuery = new URLSearchParams(window.location.search).get('author');
+      const authorQuery = new URLSearchParams(window.location.search).get(
+        "author"
+      );
 
       function filterCards() {
-        const { author, statuses, team, types } = filters;
+        const { author, statuses, team, types, query } = filters;
         const cards = document.querySelectorAll(".spec-card");
         let count = 0;
         cards.forEach((card) => {
@@ -100,7 +105,12 @@
           const inTeam = team === "all" || card.dataset.team === team;
           const inTypes =
             types.length === 0 || types.includes(card.dataset.type);
-          if (inAuthor && inStatuses && inTeam && inTypes) {
+          const inSearchQuery =
+            !query ||
+            JSON.stringify(card.dataset)
+              .toLowerCase()
+              .includes(query.toLowerCase());
+          if (inAuthor && inStatuses && inTeam && inTypes && inSearchQuery) {
             card.parentNode.classList.remove("u-hide");
             count++;
           } else {
@@ -143,14 +153,15 @@
       function updateFilterQuery(key, value) {
         var queryParams = new URLSearchParams(window.location.search);
         queryParams.set(key, value);
-        history.replaceState(null, null, "?"+queryParams.toString());
+        history.replaceState(null, null, "?" + queryParams.toString());
       }
 
       function init() {
         const statusesFilter = [];
         const typesFilter = [];
         if (approvedStatusCheckbox.checked) statusesFilter.push("Approved");
-        if (pendingReviewStatusCheckbox.checked) statusesFilter.push("Pending Review");
+        if (pendingReviewStatusCheckbox.checked)
+          statusesFilter.push("Pending Review");
         if (draftingStatusCheckbox.checked) statusesFilter.push("Drafting");
         if (braindumpStatusCheckbox.checked) statusesFilter.push("Braindump");
         if (unknownStatusCheckbox.checked) statusesFilter.push("Unknown");
@@ -163,6 +174,15 @@
         filters.team = teamSelect.value;
         filters.types = typesFilter;
         filterCards();
+      }
+
+      function search(reset=false) {
+        if (reset) {
+          updateValueFilter("", "query")
+        } else {
+          updateValueFilter(searchBoxInput.value, "query")
+        }
+        searchBoxInput.focus();
       }
 
       teamSelect.addEventListener("change", (e) =>
@@ -199,6 +219,7 @@
         generateOptions(authorSelect, authorOptions);
         init();
       });
+      searchBoxInput.addEventListener("input", () => search());
     </script>
   </body>
 </html>

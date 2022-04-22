@@ -2,8 +2,10 @@
   <div
     class="spec-card spec-card--{{ spec.status|lower }} p-card col-4 u-no-padding"
     data-authors="{{ spec.authors }}"
-    data-status="{{ spec.status }}"
+    data-index="{{ spec.index }}"
+    data-status="{{ spec.status or 'unknown'}}"
     data-team="{{ spec.folderName }}"
+    data-title="{{ spec.title }}"
     data-type="{{ spec.type }}"
   >
     <div class="spec-card__content p-card__inner">
@@ -17,7 +19,8 @@
               {{ spec.folderName or "Unknown" }}
             </li>
             <li class="p-inline-list__item">
-              {{ spec.type if spec.type in ["Standard", "Informational", "Process"] else "Unknown" }}
+              {{ spec.type if spec.type in ["Standard", "Informational",
+              "Process"] else "Unknown" }}
             </li>
           </ul>
         </small>
@@ -42,10 +45,8 @@
       <p class="p-card__content">
         <i class="p-icon--comments">Comments</i>
         <small class="u-text--muted">
-          {{ spec.numberOfComments }} comments
-          {% if spec.openComments|int > 0 %}
-          ({{ spec.openComments }} unresolved)
-          {% endif %}
+          {{ spec.numberOfComments }} comments {% if spec.openComments|int > 0
+          %} ({{ spec.openComments }} unresolved) {% endif %}
         </small>
       </p>
     </div>
