@@ -97,19 +97,5 @@ def index():
             if spec["folderName"]:
                 teams.add(spec["folderName"])
     teams = sorted(teams)
-    query = flask.request.args.get("q", "").strip()
 
-    filtered_specs = []
-
-    if query:
-        for x in specs:
-            for key, value in x.items():
-                if query in str(value):
-                    filtered_specs.append(x)
-                    break
-
-        specs = filtered_specs
-
-    return flask.render_template(
-        "index.html", specs=specs, teams=teams, query=query
-    )
+    return flask.render_template("index.html", specs=specs, teams=teams)

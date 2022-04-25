@@ -1,13 +1,11 @@
-{% extends "_base.html" %}
-
-{% block content %}
+{% extends "_base.html" %} {% block content %}
 <div class="l-fluid-breakout__toolbar u-no-margin--bottom">
   <div class="l-fluid-breakout__toolbar-items">
     <div class="l-fluid-breakout__toolbar-item">
       <span class="filtered-count"></span>&nbsp;specs
     </div>
     <div class="l-fluid-breakout__toolbar-item">
-      <form class="p-search-box u-no-margin--bottom">
+      <form class="p-search-box" action="javascript: search()">
         <label class="u-off-screen" for="q">Search</label>
         <input
           type="search"
@@ -31,31 +29,24 @@
           var resetButtons = [].slice.call(document.querySelectorAll(selector));
 
           resetButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-              var input = button.parentNode.querySelector('input');
-              location.href = '/';
-              input.focus();
+            button.addEventListener("click", function () {
+              search(true);
             });
           });
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-          initSearchResetButtons('.p-search-box__reset');
+        document.addEventListener("DOMContentLoaded", function () {
+          initSearchResetButtons(".p-search-box__reset");
         });
       </script>
     </div>
   </div>
 </div>
 
-<div class="l-fluid-breakout__aside ">
-  {% include "_filters.html" %}
-</div>
+<div class="l-fluid-breakout__aside">{% include "_filters.html" %}</div>
 
 <div class="l-fluid-breakout__main">
-  {% for spec in specs %}
-    {% with spec=spec %}
-      {% include "_card.html" %}
-    {% endwith %}
-  {% endfor %}
+  {% for spec in specs %} {% with spec=spec %} {% include "_card.html" %} {%
+  endwith %} {% endfor %}
 </div>
 {% endblock content %}
