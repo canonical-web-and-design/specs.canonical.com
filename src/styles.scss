@@ -70,7 +70,7 @@ $increase-font-size-on-larger-screens: false;
 
 .l-fluid-breakout {
   .l-fluid-breakout__main {
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     grid-gap: 1rem;
   }
 

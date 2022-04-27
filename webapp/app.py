@@ -3,6 +3,7 @@ from datetime import datetime
 
 import flask
 from canonicalwebteam.flask_base.app import FlaskBase
+from webapp.authors import parse_authors, unify_authors
 
 from webapp.spreasheet import get_sheet
 from webapp.sso import init_sso
@@ -91,11 +92,11 @@ def index():
                     else None,
                     type,
                 )
-
-            specs.append(spec)
-
+            spec["authors"] = parse_authors(spec["authors"])
             if spec["folderName"]:
                 teams.add(spec["folderName"])
+            specs.append(spec)
+    specs = unify_authors(specs)
     teams = sorted(teams)
 
     return flask.render_template("index.html", specs=specs, teams=teams)

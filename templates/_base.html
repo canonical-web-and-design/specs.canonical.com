@@ -69,7 +69,7 @@
         query: "",
       };
       const authorOptions = specs.reduce((acc, spec) => {
-        const authors = spec.authors.split(",").map((author) => author.trim());
+        const authors = spec.authors.map((author) => author.trim());
         authors.forEach((author) => {
           const exists = acc.some((option) => option === author);
           if (author && !exists) {

@@ -1,24 +1,18 @@
 <div class="l-fluid-breakout__item">
-  <div
-    class="spec-card spec-card--{{ spec.status|lower }} p-card col-4 u-no-padding"
-    data-authors="{{ spec.authors }}"
-    data-index="{{ spec.index or 'unknown'}}"
-    data-status="{{ spec.status or 'unknown'}}"
-    data-team="{{ spec.folderName }}"
-    data-title="{{ (spec.title or "Unknown title") | trim }}"
-    data-type="{{ spec.type }}"
-    data-lastupdated="{{ spec.lastUpdated }}"
-  >
+  <div class="spec-card spec-card--{{ spec.status|lower }} p-card col-4 u-no-padding"
+       data-authors="{{ spec.authors }}"
+       data-index="{{ spec.index or 'unknown' }}"
+       data-status="{{ spec.status or 'unknown' }}"
+       data-team="{{ spec.folderName }}"
+       data-title="{{ (spec.title or "Unknown title") | trim }}"
+       data-type="{{ spec.type }}"
+       data-lastupdated="{{ spec.lastUpdated }}">
     <div class="spec-card__content p-card__inner">
       <div class="spec-card__header">
         <small class="spec-card__metadata-list">
           <ul class="p-inline-list--middot u-no-margin--bottom">
-            <li class="p-inline-list__item">
-              {{ spec.index if spec.index|length == 5 else "Unknown" }}
-            </li>
-            <li class="p-inline-list__item">
-              {{ spec.folderName or "Unknown" }}
-            </li>
+            <li class="p-inline-list__item">{{ spec.index if spec.index|length == 5 else "Unknown" }}</li>
+            <li class="p-inline-list__item">{{ spec.folderName or "Unknown" }}</li>
             <li class="p-inline-list__item">
               {{ spec.type if spec.type in ["Standard", "Informational",
               "Process"] else "Unknown" }}
@@ -27,13 +21,13 @@
         </small>
         <div class="spec-card__chip-container">
           {% if spec.status == "Approved" %}
-          <div class="p-chip--positive u-no-margin">Approved</div>
+            <div class="p-chip--positive u-no-margin">Approved</div>
           {% elif spec.status == "Pending Review" %}
-          <div class="p-chip--caution u-no-margin">Pending Review</div>
+            <div class="p-chip--caution u-no-margin">Pending Review</div>
           {% elif spec.status == "Drafting" or spec.status == "Braindump" %}
-          <div class="p-chip u-no-margin">{{ spec.status }}</div>
+            <div class="p-chip u-no-margin">{{ spec.status }}</div>
           {% else %}
-          <div class="p-chip--negative u-no-margin">Unknown</div>
+            <div class="p-chip--negative u-no-margin">Unknown</div>
           {% endif %}
         </div>
       </div>
@@ -41,13 +35,13 @@
         <a href="{{ spec.fileURL }}">{{ spec.title or "Unknown title" }}</a>
       </h3>
       <small>
-        <em>{{ spec.authors }}</em>
+        <em>{{ spec.authors | join(", ") }}</em>
       </small>
       <p class="p-card__content">
         <i class="p-icon--comments">Comments</i>
         <small class="u-text--muted">
-          {{ spec.numberOfComments }} comments {% if spec.openComments|int > 0
-          %} ({{ spec.openComments }} unresolved) {% endif %}
+          {{ spec.numberOfComments }} comments
+          {% if spec.openComments|int > 0 %}({{ spec.openComments }} unresolved){% endif %}
         </small>
       </p>
     </div>
