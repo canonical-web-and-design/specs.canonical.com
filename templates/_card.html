@@ -2,11 +2,12 @@
   <div
     class="spec-card spec-card--{{ spec.status|lower }} p-card col-4 u-no-padding"
     data-authors="{{ spec.authors }}"
-    data-index="{{ spec.index }}"
+    data-index="{{ spec.index or 'unknown'}}"
     data-status="{{ spec.status or 'unknown'}}"
     data-team="{{ spec.folderName }}"
-    data-title="{{ spec.title }}"
+    data-title="{{ (spec.title or "Unknown title") | trim }}"
     data-type="{{ spec.type }}"
+    data-lastupdated="{{ spec.lastUpdated }}"
   >
     <div class="spec-card__content p-card__inner">
       <div class="spec-card__header">

@@ -1,13 +1,19 @@
-
 <form>
   <label for="teamSelect">Team</label>
   <select name="teamSelect" id="teamSelect">
-    <option value="all">All teams</option>
+    <option value="all">
+      All teams
+    </option>
     {% for team in teams %}
-      <option value="{{team}}"  {% if request.args.get("team") == team %}selected{% endif %}>{{team}}</option>
+      <option value="{{ team }}"
+              {% if request.args.get("team") == team %}selected{% endif %}>
+        {{ team }}
+      </option>
     {% endfor %}
   </select>
-  <p class="u-no-margin--bottom">Status</p>
+  <p class="u-no-margin--bottom">
+    Status
+  </p>
   <label class="p-checkbox">
     <input class="p-checkbox__input" id="approvedStatus" type="checkbox" />
     <span class="p-checkbox__label">Approved</span>
@@ -28,7 +34,9 @@
     <input class="p-checkbox__input" id="unknownStatus" type="checkbox" />
     <span class="p-checkbox__label">Unknown</span>
   </label>
-  <p class="u-no-margin--bottom">Type</p>
+  <p class="u-no-margin--bottom">
+    Type
+  </p>
   <label class="p-checkbox">
     <input class="p-checkbox__input" id="standardType" type="checkbox" />
     <span class="p-checkbox__label">Standard</span>
@@ -43,6 +51,20 @@
   </label>
   <label for="authorSelect">Author</label>
   <select name="authorSelect" id="authorSelect">
-    <option value="all">All authors</option>
+    <option value="all">
+      All authors
+    </option>
+  </select>
+  <label for="sortBy">Sort by</label>
+  <select name="sortBy" id="sortBy">
+    <option value="last-updated">
+      Last modified
+    </option>
+    <option value="name">
+      Name
+    </option>
+    <option value="index">
+      Spec index
+    </option>
   </select>
 </form>

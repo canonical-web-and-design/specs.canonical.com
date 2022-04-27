@@ -45,7 +45,7 @@
 
 <div class="l-fluid-breakout__aside">{% include "_filters.html" %}</div>
 
-<div class="l-fluid-breakout__main">
+<div class="l-fluid-breakout__main" id="cards">
   {% for spec in specs %} {% with spec=spec %} {% include "_card.html" %} {%
   endwith %} {% endfor %}
 </div>
