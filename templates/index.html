@@ -44,9 +44,16 @@
 </div>
 
 <div class="l-fluid-breakout__aside">{% include "_filters.html" %}</div>
-
 <div class="l-fluid-breakout__main" id="cards">
   {% for spec in specs %} {% with spec=spec %} {% include "_card.html" %} {%
   endwith %} {% endfor %}
 </div>
+<template id="no-results">
+  <div
+    class="l-fluid-breakout__main u-align-text--center"
+    id="no-results-message"
+  >
+    <strong>No specs found</strong>
+  </div>
+</template>
 {% endblock content %}
