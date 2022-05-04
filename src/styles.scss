@@ -5,6 +5,10 @@ $increase-font-size-on-larger-screens: false;
 @include vanilla;
 @include vf-p-icon-comments;
 
+main {
+  padding-bottom: $spv--strip-regular;
+}
+
 .spec-card {
   display: flex;
   flex-direction: column;
