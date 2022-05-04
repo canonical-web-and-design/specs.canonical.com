@@ -77,6 +77,21 @@ $increase-font-size-on-larger-screens: false;
   .l-fluid-breakout__toolbar {
     padding: 2rem 0;
   }
+
+  @media screen and (max-width: $breakpoint-small - 1) {
+    .l-fluid-breakout__toolbar {
+      padding-bottom: 0;
+    }
+
+    .l-fluid-breakout__toolbar-items {
+      width: 100%;
+    }
+
+    .l-fluid-breakout__toolbar-item {
+      display: block;
+      grid-column-end: auto;
+    }
+  }
 }
 
 .p-navigation__row {
@@ -85,4 +100,8 @@ $increase-font-size-on-larger-screens: false;
 
 .p-search-box__input {
   width: 20rem;
+
+  @media screen and (max-width: $breakpoint-small - 1) {
+    width: 100%;
+  }
 }
