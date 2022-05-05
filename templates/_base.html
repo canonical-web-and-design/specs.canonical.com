@@ -66,6 +66,7 @@
       const searchBoxInput = document.querySelector(".p-search-box__input");
       const cardsGrid = document.getElementById("cards");
       const main = document.getElementById("main");
+      const noResultsMessage = document.getElementById("no-results")
       const specs = {{ specs | tojson }};
       const filters = {
         author: "all",
@@ -100,28 +101,17 @@
           direction = -1;
           key = (e) => new Date(e.dataset.lastupdated).getTime();
         }
-        const cards = document.getElementById("cards");
-        Array.from(cards.children)
-          .map((card) => cards.removeChild(card))
+        const cards = document.querySelectorAll("[data-js='grid-item']");
+        [...cards]
+          .map((card) => cardsGrid.removeChild(card))
           .sort((x, y) => {
             const card1 = x.querySelector(".spec-card");
             const card2 = y.querySelector(".spec-card");
             return direction * (key(card1) > key(card2) ? 1 : -1);
           })
-          .forEach((card) => cards.appendChild(card));
+          .forEach((card) => cardsGrid.appendChild(card));
       }
 
-      function handleNoResultsMessage(count) {
-        let message = document.getElementById("no-results-message");
-        if (count === 0 && !message) {
-            cardsGrid.classList.add("u-hide")
-            message = document.getElementById("no-results").content.cloneNode(true);
-            main.appendChild(message)
-        } else if (count !== 0 && message) {
-          cardsGrid.classList.remove("u-hide");
-          main.removeChild(message);
-        }
-      }
 
       function filterCards() {
         const { author, statuses, team, types, query } = filters;
@@ -154,7 +144,11 @@
           filteredCount.innerHTML = count;
         });
 
-        handleNoResultsMessage(count)
+        if (count === 0) {
+            noResultsMessage.classList.remove("u-hide")
+        } else {
+          noResultsMessage.classList.add("u-hide");
+        }
       }
 
       function generateOptions(select, options) {

@@ -110,6 +110,6 @@ main {
   }
 }
 
-#no-results-message {
-  display: block;
+#no-results {
+  grid-column: 1 / -1;
 }
