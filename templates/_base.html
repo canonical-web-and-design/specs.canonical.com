@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>
-      {% block title %}Canonical specs{% endblock %}
-    </title>
-    <link rel="stylesheet"
-          type="text/css"
-          media="screen"
-          href="{{ versioned_static('css/styles.css') }}"/>
+    <title>{% block title %}Canonical specs{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="{{ versioned_static('css/styles.css') }}"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon"
-          href="https://assets.ubuntu.com/v1/0843d517-favicon.ico"
-          type="image/x-icon"/>
+    <link
+      rel="shortcut icon"
+      href="https://assets.ubuntu.com/v1/0843d517-favicon.ico"
+      type="image/x-icon"
+    />
   </head>
   <body>
     <header id="navigation" class="p-navigation is-dark">
@@ -19,18 +21,20 @@
         <div class="p-navigation__banner">
           <div class="p-navigation__logo">
             <a class="p-navigation__item" href="/">
-              <img class="p-navigation__image"
-                   src="https://assets.ubuntu.com/v1/2fcd45d2-logo-canonical-white.png"
-                   alt="Canonical"
-                   width="133"
-                   height="19"
-                   style="min-height: auto"/>
+              <img
+                class="p-navigation__image"
+                src="https://assets.ubuntu.com/v1/2fcd45d2-logo-canonical-white.png"
+                alt="Canonical"
+                width="133"
+                height="19"
+                style="min-height: auto"
+              />
             </a>
           </div>
         </div>
       </div>
     </header>
-    <main class="l-fluid-breakout">
+    <main class="l-fluid-breakout" id="main">
       {% block content %}{% endblock %}
     </main>
     <hr class="u-no-margin--bottom" />
@@ -60,6 +64,9 @@
       const sortBy = document.querySelector("#sortBy");
       const filteredCount = document.querySelector(".filtered-count");
       const searchBoxInput = document.querySelector(".p-search-box__input");
+      const cardsGrid = document.getElementById("cards");
+      const main = document.getElementById("main");
+      const noResultsMessage = document.getElementById("no-results")
       const specs = {{ specs | tojson }};
       const filters = {
         author: "all",
@@ -85,25 +92,26 @@
 
       function sortCards(by = "name") {
         let key = () => "";
-        let direction = 1; 
+        let direction = 1;
         if (by === "name") {
           key = (e) => e.dataset.title;
         } else if (by === "index") {
           key = (e) => e.dataset.index;
         } else if (by === "last-updated") {
-          direction = -1; 
+          direction = -1;
           key = (e) => new Date(e.dataset.lastupdated).getTime();
         }
-        const cards = document.getElementById("cards");
-        Array.from(cards.children)
-          .map((card) => cards.removeChild(card))
+        const cards = document.querySelectorAll("[data-js='grid-item']");
+        [...cards]
+          .map((card) => cardsGrid.removeChild(card))
           .sort((x, y) => {
             const card1 = x.querySelector(".spec-card");
             const card2 = y.querySelector(".spec-card");
             return direction * (key(card1) > key(card2) ? 1 : -1);
           })
-          .forEach((card) => cards.appendChild(card));
+          .forEach((card) => cardsGrid.appendChild(card));
       }
+
 
       function filterCards() {
         const { author, statuses, team, types, query } = filters;
@@ -135,6 +143,12 @@
           }
           filteredCount.innerHTML = count;
         });
+
+        if (count === 0) {
+            noResultsMessage.classList.remove("u-hide")
+        } else {
+          noResultsMessage.classList.add("u-hide");
+        }
       }
 
       function generateOptions(select, options) {

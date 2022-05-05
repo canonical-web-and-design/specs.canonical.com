@@ -5,6 +5,10 @@ $increase-font-size-on-larger-screens: false;
 @include vanilla;
 @include vf-p-icon-comments;
 
+main {
+  padding-bottom: $spv--strip-regular;
+}
+
 .spec-card {
   display: flex;
   flex-direction: column;
@@ -104,4 +108,8 @@ $increase-font-size-on-larger-screens: false;
   @media screen and (max-width: $breakpoint-small - 1) {
     width: 100%;
   }
+}
+
+#no-results {
+  grid-column: 1 / -1;
 }

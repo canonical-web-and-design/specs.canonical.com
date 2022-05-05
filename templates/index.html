@@ -44,8 +44,8 @@
 </div>
 
 <div class="l-fluid-breakout__aside">{% include "_filters.html" %}</div>
-
 <div class="l-fluid-breakout__main" id="cards">
+  <h2 id="no-results" class="u-hide u-align-text--center">No specs found</h2>
   {% for spec in specs %} {% with spec=spec %} {% include "_card.html" %} {%
   endwith %} {% endfor %}
 </div>
