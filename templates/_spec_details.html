@@ -1,0 +1,68 @@
+<aside class="spec-aside l-aside hide">
+  <div class="spec-container">
+    <section class="p-strip is-bordered is-shallow">
+      <small class="spec-card__metadata-list">
+        <ul class="header p-inline-list--middot u-no-margin--bottom">
+          <!-- li: index -->
+          <!-- li: folderName -->
+          <!-- li: type -->
+        </ul>
+      </small>
+      <button class="p-modal__close" aria-label="Close spec preview">
+        Close
+      </button>
+    </section>
+    <section class="spec-metadata p-strip is-bordered is-shallow">
+      <h3 class="title"></h3>
+      <small
+        >Authors: <em class="authors"></em>
+        <br />
+        Created: <em class="created"></em>
+        <br />
+      </small>
+    </section>
+    <section class="spec-preview"></section>
+    <a class="p-button--positive" href="#">Open in Google Docs</a>
+  </div>
+  <script>
+    const currentElement = document.currentScript.parentElement;
+    // setup cards preview
+    const links = document.querySelectorAll(".spec-card__content a");
+    links.forEach((link) =>
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        let documentId = e.target.href.match(
+          /.*docs.google.com\/document\/d\/(?<documentId>.+)/
+        ).groups.documentId;
+        documentId = documentId.split("/")[0];
+        if (documentId) {
+          loadContent(documentId);
+        }
+      })
+    );
+
+    currentElement
+      .querySelector(".p-modal__close")
+      .addEventListener("click", () => currentElement.classList.add("hide"));
+    function loadContent(documentId) {
+      fetch("/spec/" + documentId)
+        .then((response) => response.json())
+        .then((spec) => {
+          currentElement.classList.remove("hide");
+          const specContainer = currentElement.querySelector(".spec-container");
+          specContainer.querySelector(".header").innerHTML = `
+          <li class="p-inline-list__item">${spec.metadata.index}</li>
+          <li class="p-inline-list__item">${spec.metadata.type}</li>
+        `;
+          specContainer.querySelector(".spec-preview").innerHTML = spec.html;
+          specContainer.querySelector(".title").innerHTML = spec.metadata.title;
+          specContainer.querySelector(".authors").innerHTML =
+            spec.metadata.authors.join(", ");
+          // specContainer.querySelector(".contributors").innerHTML =
+          // spec.metadata.authors.join(", ");
+          specContainer.querySelector(".created").innerHTML =
+            spec.metadata.created.toLocaleString();
+        });
+    }
+  </script>
+</aside>

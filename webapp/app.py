@@ -4,6 +4,7 @@ from datetime import datetime
 import flask
 from canonicalwebteam.flask_base.app import FlaskBase
 from webapp.authors import parse_authors, unify_authors
+from webapp.spec import GoogleDrive, Spec
 
 from webapp.spreasheet import get_sheet
 from webapp.sso import init_sso
@@ -16,7 +17,7 @@ SPECS_API = f"https://script.google.com/macros/s/{DEPLOYMENT_ID}/exec"
 
 SPREADSHEET_ID = "1jFj4z19cXZaPZcZk8nPTPmeO0zBbja5Bg23eXiZr9Pw"
 sheet = get_sheet()
-
+google_drive = GoogleDrive()
 
 app = FlaskBase(
     __name__,
@@ -100,3 +101,9 @@ def index():
     teams = sorted(teams)
 
     return flask.render_template("index.html", specs=specs, teams=teams)
+
+
+@app.route("/spec/<document_id>")
+def spec_details(document_id):
+    spec = Spec(google_drive, document_id)
+    return flask.jsonify({"metadata":spec.metadata, "html":spec.html.encode("utf-8").decode()})
