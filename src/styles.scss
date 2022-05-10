@@ -98,8 +98,11 @@ main {
   }
 }
 
+// Match the same width as the fluid-breakout
+.row,
+.u-fixed-width,
 .p-navigation__row {
-  max-width: 100%;
+  max-width: calc(2 * 14rem + $grid-max-width) !important;
 }
 
 .p-search-box__input {
