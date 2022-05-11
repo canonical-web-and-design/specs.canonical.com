@@ -47,6 +47,10 @@
       const draftingStatusCheckbox = document.querySelector("#draftingStatus");
       const braindumpStatusCheckbox =
         document.querySelector("#braindumpStatus");
+      const activeStatusCheckbox = document.querySelector("#activeStatus");
+      const completedStatusCheckbox = document.querySelector("#completedStatus");
+      const rejectedStatusCheckbox = document.querySelector("#rejectedStatus");
+      const obsoleteStatusCheckbox = document.querySelector("#obsoleteStatus");
       const unknownStatusCheckbox = document.querySelector("#unknownStatus");
       const standardTypeCheckbox = document.querySelector("#standardType");
       const informationalTypeCheckbox =
@@ -117,7 +121,7 @@
             statuses.length === 0 ||
             statuses.includes(card.dataset.status) ||
             (statuses.some((status) => status === "Unknown") &&
-              !["Approved", "Pending Review", "Drafting", "Braindump"].includes(
+              !["Approved", "Completed", "Active", "Pending Review", "Drafting", "Braindump", "Obsolete", "Rejected"].includes(
                 card.dataset.status
               ));
           const inTeam = team === "all" || card.dataset.team === team;
@@ -218,6 +222,12 @@
       approvedStatusCheckbox.addEventListener("change", (e) =>
         updateListFilter(e.target.checked, "statuses", "Approved")
       );
+      activeStatusCheckbox.addEventListener("change", (e) =>
+        updateListFilter(e.target.checked, "statuses", "Active")
+      );
+      completedStatusCheckbox.addEventListener("change", (e) =>
+        updateListFilter(e.target.checked, "statuses", "Completed")
+      );
       pendingReviewStatusCheckbox.addEventListener("change", (e) =>
         updateListFilter(e.target.checked, "statuses", "Pending Review")
       );
@@ -226,6 +236,12 @@
       );
       braindumpStatusCheckbox.addEventListener("change", (e) =>
         updateListFilter(e.target.checked, "statuses", "Braindump")
+      );
+      rejectedStatusCheckbox.addEventListener("change", (e) =>
+        updateListFilter(e.target.checked, "statuses", "Rejected")
+      );
+      obsoleteStatusCheckbox.addEventListener("change", (e) =>
+        updateListFilter(e.target.checked, "statuses", "Obsolete")
       );
       unknownStatusCheckbox.addEventListener("change", (e) =>
         updateListFilter(e.target.checked, "statuses", "Unknown")
