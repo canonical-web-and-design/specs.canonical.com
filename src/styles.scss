@@ -42,6 +42,8 @@ main {
   border-top-color: $color-caution !important;
 }
 
+.spec-card--active,
+.spec-card--completed,
 .spec-card--approved {
   border-top-color: $color-positive !important;
 }
@@ -98,8 +100,11 @@ main {
   }
 }
 
+// Match the same width as the fluid-breakout
+.row,
+.u-fixed-width,
 .p-navigation__row {
-  max-width: 100%;
+  max-width: calc(2 * 14rem + $grid-max-width) !important;
 }
 
 .p-search-box__input {
