@@ -106,4 +106,10 @@ def index():
 @app.route("/spec/<document_id>")
 def spec_details(document_id):
     spec = Spec(google_drive, document_id)
-    return flask.jsonify({"metadata":spec.metadata, "html":spec.html.encode("utf-8").decode()})
+    return flask.jsonify(
+        {
+            "metadata": spec.metadata,
+            "url": spec.url,
+            "html": spec.html.encode("utf-8").decode(),
+        }
+    )

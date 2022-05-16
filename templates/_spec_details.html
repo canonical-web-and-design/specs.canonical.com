@@ -1,4 +1,4 @@
-<aside class="spec-aside l-aside hide">
+<aside class="spec-aside l-aside is-wide hide">
   <div class="spec-container">
     <section class="p-strip is-bordered is-shallow">
       <small class="spec-card__metadata-list">
@@ -8,23 +8,21 @@
           <!-- li: type -->
         </ul>
       </small>
-      <button class="p-modal__close" aria-label="Close spec preview">
-        Close
-      </button>
+      <button class="p-modal__close" aria-label="Close spec preview">Close</button>
     </section>
     <section class="spec-metadata p-strip is-bordered is-shallow">
       <h3 class="title"></h3>
-      <small
-        >Authors: <em class="authors"></em>
-        <br />
-        Created: <em class="created"></em>
-        <br />
-      </small>
-    </section>
-    <section class="spec-preview"></section>
-    <a class="p-button--positive" href="#">Open in Google Docs</a>
-  </div>
-  <script>
+      <small >Authors: <em class="authors"></em>
+      <br />
+      Created: <em class="created"></em>
+      <br />
+    </small>
+  </section>
+  <section class="spec-preview">
+  </section>
+  <a class="p-button--positive spec-link" href="#" role="button">Open in Google Docs</a>
+</div>
+<script>
     const currentElement = document.currentScript.parentElement;
     // setup cards preview
     const links = document.querySelectorAll(".spec-card__content a");
@@ -58,11 +56,10 @@
           specContainer.querySelector(".title").innerHTML = spec.metadata.title;
           specContainer.querySelector(".authors").innerHTML =
             spec.metadata.authors.join(", ");
-          // specContainer.querySelector(".contributors").innerHTML =
-          // spec.metadata.authors.join(", ");
           specContainer.querySelector(".created").innerHTML =
             spec.metadata.created.toLocaleString();
+          specContainer.querySelector(".spec-link").href = spec.url;
         });
     }
-  </script>
+</script>
 </aside>

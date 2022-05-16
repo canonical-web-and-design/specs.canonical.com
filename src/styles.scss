@@ -150,10 +150,10 @@ main {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     background-color: $colors--light-theme--background-default;
     .spec-preview {
       overflow: auto;
+      flex: 1;
     }
     .p-button--positive {
       width: fit-content;

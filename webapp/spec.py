@@ -11,6 +11,7 @@ from googleapiclient.discovery import build
 from webapp.spreasheet import DiscoveryCache
 from dateutil.parser import parse
 
+
 class GoogleDrive:
     def __init__(self):
         scopes = [
@@ -48,20 +49,38 @@ class GoogleDrive:
         while done is False:
             _, done = downloader.next_chunk()
         html = fh.getvalue().decode("utf-8")
-        comments = self.service.comments().list(fileId=document_id).execute().get("items", [])
+        comments = (
+            self.service.comments()
+            .list(fileId=document_id)
+            .execute()
+            .get("items", [])
+        )
         return html, comments
 
 
 class Spec:
-    html:BeautifulSoup
-    metadata = {"index": "","title":"", "status":"", "authors":[], "type":"", "created":""}
+    html: BeautifulSoup
+    metadata = {
+        "index": "",
+        "title": "",
+        "status": "",
+        "authors": [],
+        "type": "",
+        "created": "",
+    }
+    url = "https://docs.google.com/document/d/"
+
     def __init__(self, google_drive: GoogleDrive, document_id: str):
+        self.url = f"{self.url}/{document_id}"
         raw_html, comments = google_drive.doc_html(document_id)
         self.html = BeautifulSoup(raw_html, features="lxml")
         self.clean()
         self.parse_metadata()
+
     def clean(self):
-        empty_tags_selector = lambda tag: (not tag.contents or len(tag.get_text(strip=True)) <= 0) and tag.name not in ["br", "img", "hr"]
+        empty_tags_selector = lambda tag: (
+            not tag.contents or len(tag.get_text(strip=True)) <= 0
+        ) and tag.name not in ["br", "img", "hr"]
         for element in self.html.findAll(empty_tags_selector):
             element.decompose()
 
@@ -80,17 +99,31 @@ class Spec:
                 if attr_name in ["index", "title"]:
                     self.metadata[attr_name] = attr_value
                 elif attr_name == "status":
-                    if attr_value_lower_case in ["approved","pending review","drafting","braindump","unknown"]:
+                    if attr_value_lower_case in [
+                        "approved",
+                        "pending review",
+                        "drafting",
+                        "braindump",
+                        "unknown",
+                    ]:
                         self.metadata["status"] = attr_value_lower_case
                     else:
                         self.metadata["status"] = "unknown"
                 elif attr_name == "authors":
-                    self.metadata["authors"] = [author.strip() for author in attr_value.split(',')]
-                elif attr_name=="type":
-                    if attr_value_lower_case in ["standard","informational","process"]:
-                        self.metadata['type'] = attr_value_lower_case
+                    self.metadata["authors"] = [
+                        author.strip() for author in attr_value.split(",")
+                    ]
+                elif attr_name == "type":
+                    if attr_value_lower_case in [
+                        "standard",
+                        "informational",
+                        "process",
+                    ]:
+                        self.metadata["type"] = attr_value_lower_case
                     else:
                         self.metadata["type"] = "unknown"
                 elif attr_name == "created":
-                    self.metadata['created'] = parse(attr_value_lower_case)
+                    self.metadata["created"] = parse(
+                        attr_value_lower_case, fuzzy=True
+                    )
         table.decompose()
