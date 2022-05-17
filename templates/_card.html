@@ -19,17 +19,17 @@
             </li>
           </ul>
         </small>
-        <div class="spec-card__chip-container">
+        <div class="spec-card__status-label-container">
           {% if spec.status == "Approved" or spec.status == "Completed" or spec.status == "Active" %}
-            <div class="p-chip--positive u-no-margin">{{ spec.status }}</div>
+            <div class="p-status-label--positive u-no-margin">{{ spec.status }}</div>
           {% elif spec.status == "Pending Review" %}
-            <div class="p-chip--caution u-no-margin">Pending Review</div>
+            <div class="p-status-label--caution u-no-margin">Pending Review</div>
           {% elif spec.status == "Drafting" or spec.status == "Braindump" %}
-            <div class="p-chip u-no-margin">{{ spec.status }}</div>
+            <div class="p-status-label u-no-margin">{{ spec.status }}</div>
           {% elif spec.status == "Rejected" or spec.status == "Obsolete" %}
-            <div class="p-chip--negative u-no-margin">{{ spec.status }}</div>
+            <div class="p-status-label--negative u-no-margin">{{ spec.status }}</div>
           {% else %}
-            <div class="p-chip--negative u-no-margin">Unknown</div>
+            <div class="p-status-label--negative u-no-margin">Unknown</div>
           {% endif %}
         </div>
       </div>
