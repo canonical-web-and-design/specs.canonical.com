@@ -19,7 +19,7 @@
             </li>
           </ul>
         </small>
-        <div class="spec-card__status-label-container">
+        <div>
           {% if spec.status == "Approved" or spec.status == "Completed" or spec.status == "Active" %}
             <div class="p-status-label--positive u-no-margin">{{ spec.status }}</div>
           {% elif spec.status == "Pending Review" %}

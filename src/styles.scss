@@ -28,11 +28,6 @@ main {
   margin: 0;
 }
 
-.spec-card__status-label-container {
-  flex-shrink: 0;
-  margin-left: $sph--small;
-}
-
 .spec-card--drafting,
 .spec-card--braindump {
   border-top-color: $color-mid-dark !important;
