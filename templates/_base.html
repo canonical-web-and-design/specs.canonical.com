@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>{% block title %}Canonical specifications{% endblock %}</title>
     <link
@@ -16,6 +16,7 @@
     />
   </head>
   <body>
+    <a href="#cards" class="p-link--skip">Jump to main content</a>
     <header id="navigation" class="p-navigation is-dark">
       <div class="p-navigation__row">
         <div class="p-navigation__banner">
@@ -28,6 +29,7 @@
       </div>
     </header>
     <main class="l-fluid-breakout" id="main">
+      <h1 class="u-off-screen">Canonical specifications</h1>
       {% block content %}{% endblock %}
     </main>
     <hr class="u-no-margin--bottom" />
