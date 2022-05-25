@@ -11,12 +11,7 @@
       <div class="spec-card__header">
         <small class="spec-card__metadata-list">
           <ul class="p-inline-list--middot u-no-margin--bottom">
-            <li class="p-inline-list__item">{{ spec.index if spec.index|length == 5 else "Unknown" }}</li>
-            <li class="p-inline-list__item">{{ spec.folderName or "Unknown" }}</li>
-            <li class="p-inline-list__item">
-              {{ spec.type if spec.type in ["Standard", "Informational",
-              "Process"] else "Unknown" }}
-            </li>
+            <li class="p-inline-list__item">{{ spec.index if spec.index|length == 5 else "Unknown" }}</li><li class="p-inline-list__item">{{ spec.folderName or "Unknown" }}</li><li class="p-inline-list__item">{{ spec.type if spec.type in ["Standard", "Informational", "Process"] else "Unknown" }}</li>
           </ul>
         </small>
         <div>
