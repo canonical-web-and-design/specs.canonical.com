@@ -2,7 +2,7 @@
   <div class="spec-card spec-card--{{ spec.status|lower }} p-card col-4 u-no-padding"
        data-authors="{{ spec.authors }}"
        data-index="{{ spec.index or 'unknown' }}"
-       data-status="{{ spec.status or 'unknown' }}"
+       data-status="{{ spec.status.title() or 'unknown' }}"
        data-team="{{ spec.folderName }}"
        data-title="{{ (spec.title or "Unknown title") | trim }}"
        data-type="{{ spec.type }}"
@@ -22,7 +22,7 @@
         <div>
           {% if spec.status == "Approved" or spec.status == "Completed" or spec.status == "Active" %}
             <div class="p-status-label--positive u-no-margin">{{ spec.status }}</div>
-          {% elif spec.status == "Pending Review" %}
+          {% elif spec.status.title() == "Pending Review" %}
             <div class="p-status-label--caution u-no-margin">Pending Review</div>
           {% elif spec.status == "Drafting" or spec.status == "Braindump" %}
             <div class="p-status-label u-no-margin">{{ spec.status }}</div>
