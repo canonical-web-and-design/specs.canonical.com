@@ -113,3 +113,47 @@ main {
 #no-results {
   grid-column: 1 / -1;
 }
+
+.spec-aside {
+  transition-property: right;
+  position: fixed;
+  top: 0;
+  right: 0;
+  isolation: isolate;
+  height: 100vh;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background-color: $color-input-shadow;
+  }
+  &.hide {
+    right: -100%;
+    &::after {
+      display: none;
+    }
+  }
+  .spec-container {
+    padding: $spv--large $sph--large;
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $colors--light-theme--background-default;
+    .spec-preview {
+      overflow: auto;
+      flex: 1;
+    }
+    .p-button--positive {
+      width: fit-content;
+      margin-left: auto;
+      margin-top: $spv--medium;
+    }
+  }
+}
