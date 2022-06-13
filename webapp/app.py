@@ -54,8 +54,7 @@ def is_spec(row):
     return "userEnteredValue" in row[1]
 
 
-@app.route("/")
-def index():
+def _generate_specs():
     SHEET = "Specs"
     RANGE = "A2:M1000"
     COLUMNS = [
@@ -78,9 +77,6 @@ def index():
         ranges=[f"{SHEET}!{RANGE}"],
         includeGridData=True,
     ).execute()
-
-    specs = []
-    teams = set()
     for row in res["sheets"][0]["data"][0]["rowData"]:
         if "values" in row and is_spec(row["values"]):
             spec = {}
@@ -92,11 +88,28 @@ def index():
                     else None,
                     type,
                 )
-            spec["authors"] = parse_authors(spec["authors"])
-            if spec["folderName"]:
-                teams.add(spec["folderName"])
-            specs.append(spec)
+            yield spec
+
+
+@app.route("/")
+def index():
+    specs = []
+    teams = set()
+    for spec in _generate_specs():
+        spec["authors"] = parse_authors(spec["authors"])
+        if spec["folderName"]:
+            teams.add(spec["folderName"])
+        specs.append(spec)
     specs = unify_authors(specs)
     teams = sorted(teams)
 
     return flask.render_template("index.html", specs=specs, teams=teams)
+
+
+@app.route("/spec/<spec_name>")
+def spec(spec_name):
+    for spec in _generate_specs():
+        if spec_name == spec["index"]:
+            return flask.redirect(spec["fileURL"])
+    else:
+        flask.abort(404)
