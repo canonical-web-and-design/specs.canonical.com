@@ -5,7 +5,7 @@ import flask
 from canonicalwebteam.flask_base.app import FlaskBase
 from webapp.authors import parse_authors, unify_authors
 
-from webapp.spreasheet import get_sheet
+from webapp.spreadsheet import get_sheet
 from webapp.sso import init_sso
 
 DEPLOYMENT_ID = os.getenv(
