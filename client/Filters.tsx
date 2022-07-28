@@ -1,7 +1,7 @@
 import { CheckboxInput, Select } from "@canonical/react-components";
 import { useFormik } from "formik";
 import { useEffect } from "react";
-import { types } from "./App";
+import { specTypes } from "./App";
 
 export type FilterOptions = {
   team: string;
@@ -69,7 +69,7 @@ const Filters = ({
       ))}
 
       <p className="u-no-margin--bottom">Type</p>
-      {[...types].map((typeName) => (
+      {[...specTypes].map((typeName) => (
         <CheckboxInput
           key={typeName}
           label={typeName}

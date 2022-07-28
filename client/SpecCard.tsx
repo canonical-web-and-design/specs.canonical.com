@@ -48,13 +48,17 @@ const SpecCard = ({ spec }: { spec: Spec }) => {
           <p className="p-card__content">
             <i className="p-icon--comments">Comments</i>
             <small className="u-text--muted">
-              {spec.numberOfComments} comments
-              {spec.openComments > 0 ? `${spec.openComments} unresolved` : ""}
+              {` ${spec.numberOfComments} comments ${
+                spec.openComments > 0 ? `${spec.openComments} unresolved` : ""
+              }`}
             </small>
           </p>
         </div>
         <div className="spec-card__footer p-card__inner">
-          <em className="u-align--right">{`Last edit: ${spec.lastUpdated}`}</em>
+          <em className="u-align--right">{`Last edit: ${spec.lastUpdated.toLocaleDateString(
+            "en-GB",
+            { day: "numeric", month: "short", year: "numeric" }
+          )}`}</em>
         </div>
       </div>
     </div>

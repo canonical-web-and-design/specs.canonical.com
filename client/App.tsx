@@ -16,11 +16,11 @@ function useFilteredAndSortedSpecs(specs: Spec[]) {
     let key: keyof Spec = "lastUpdated";
     if (by === "date") {
       key = "lastUpdated";
+      direction = -1;
     } else if (by === "name") {
       key = "title";
     } else if (by === "index") {
       key = "index";
-      direction = -1;
     }
 
     return specs.sort((x, y) => {
@@ -92,15 +92,19 @@ function useFilteredAndSortedSpecs(specs: Spec[]) {
   }, [filter, searchQuery]);
   return { filteredSpecs, setFilter, setSearchQuery };
 }
-export const types = new Set(["Standard", "Informational", "Process"]);
+
+export const specTypes = new Set(["Standard", "Informational", "Process"]);
+
 function App({ specs, teams }: { specs: Spec[]; teams: Team[] }) {
   specs = specs.map((spec) => ({
     ...spec,
     title: spec.title || "Unknown title",
     index: spec.index?.length === 5 ? spec.index : "Unknown",
     status: spec.status || "Unknown",
-    folderName: spec.status || "Unknown",
-    type: types.has(spec.type) ? spec.type : "Unknown",
+    folderName: spec.folderName || "Unknown",
+    type: specTypes.has(spec.type) ? spec.type : "Unknown",
+    created: new Date(spec.created),
+    lastUpdated: new Date(spec.lastUpdated),
   }));
 
   const { filteredSpecs, setFilter, setSearchQuery } =
