@@ -57,6 +57,9 @@ main {
 .p-navigation.is-dark {
   background-color: $color-navigation-background;
 }
+.p-navigation__logo-tag {
+  width: 0 !important;
+}
 
 .p-content {
   position: relative;

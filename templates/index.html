@@ -1,52 +1,30 @@
-{% extends "_base.html" %} {% block content %}
-<div class="l-fluid-breakout__toolbar u-no-margin--bottom">
-  <div class="l-fluid-breakout__toolbar-items">
-    <div class="l-fluid-breakout__toolbar-item">
-      <span class="filtered-count"></span>&nbsp;specs
-    </div>
-    <div class="l-fluid-breakout__toolbar-item">
-      <form class="p-search-box" action="javascript: search()">
-        <label class="u-off-screen" for="q">Search</label>
-        <input
-          type="search"
-          id="q"
-          class="p-search-box__input"
-          name="q"
-          placeholder="Search"
-          required=""
-          autocomplete="on"
-          value="{{ query }}"
-        />
-        <button type="reset" class="p-search-box__reset">
-          <i class="p-icon--close">Close</i>
-        </button>
-        <button type="submit" class="p-search-box__button">
-          <i class="p-icon--search">Search</i>
-        </button>
-      </form>
-      <script>
-        function initSearchResetButtons(selector) {
-          var resetButtons = [].slice.call(document.querySelectorAll(selector));
-
-          resetButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-              search(true);
-            });
-          });
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-          initSearchResetButtons(".p-search-box__reset");
-        });
-      </script>
-    </div>
-  </div>
-</div>
-
-<div class="l-fluid-breakout__aside">{% include "_filters.html" %}</div>
-<div class="l-fluid-breakout__main" id="cards">
-  <h2 id="no-results" class="u-hide u-align-text--center">No specs found</h2>
-  {% for spec in specs %} {% with spec=spec %} {% include "_card.html" %} {%
-  endwith %} {% endfor %}
-</div>
-{% endblock content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Canonical specifications{% endblock %}</title>
+    <link
+      rel="shortcut icon"
+      href="https://assets.ubuntu.com/v1/0843d517-favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="{{ versioned_static('style.css') }}"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const specs = {{ specs | tojson }};
+      const teams = {{ teams | tojson }};
+    </script>
+    <script
+      type="module"
+      src="{{ versioned_static('canonical-specs.umd.js') }}"
+    ></script>
+  </body>
+</html>
