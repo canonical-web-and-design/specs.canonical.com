@@ -4,7 +4,7 @@
     "clean": "rm -rf node_modules yarn-error.log static *.log *.sqlite _site/ build/ .jekyll-metadata .bundle",
     "start": "concurrently --kill-others --raw 'yarn run watch-js' 'yarn run serve'",
     "serve": "./entrypoint 0.0.0.0:$PORT",
-    "watch-js": "npx vite build --watch",
+    "watch-js": "npx vite build --watch --sourcemap",
     "build": "npx vite build",
     "lint-python": "flake8 webapp && black --check --line-length 79 webapp",
     "test": "yarn run lint-python && yarn run test-python",
@@ -13,14 +13,17 @@
   "dependencies": {
     "@canonical/react-components": "^0.37.4",
     "autoprefixer": "10.4.1",
+    "clsx": "^1.2.1",
     "concurrently": "^7.1.0",
     "formik": "^2.2.9",
+    "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "1.42.1",
     "vanilla-framework": "3.6.1"
   },
   "devDependencies": {
+    "@types/qs": "^6.9.7",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.0",

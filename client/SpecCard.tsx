@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { Spec } from "./types";
 
 const SpecCard = ({ spec }: { spec: Spec }) => {
@@ -15,28 +16,24 @@ const SpecCard = ({ spec }: { spec: Spec }) => {
                 <li className="p-inline-list__item">{spec.type}</li>
               </ul>
             </small>
-            <div>
-              {spec.status === "Approved" ||
-              spec.status === "Completed" ||
-              spec.status === "Active" ? (
-                <div className="p-status-label--positive u-no-margin">
-                  {spec.status}
-                </div>
-              ) : spec.status === "Pending Review" ? (
-                <div className="p-status-label--caution u-no-margin">
-                  Pending Review
-                </div>
-              ) : spec.status === "Drafting" || spec.status === "Braindump" ? (
-                <div className="p-status-label u-no-margin">{spec.status}</div>
-              ) : spec.status === "Rejected" || spec.status === "Obsolete" ? (
-                <div className="p-status-label--negative u-no-margin">
-                  {spec.status}
-                </div>
-              ) : (
-                <div className="p-status-label--negative u-no-margin">
-                  Unknown
-                </div>
-              )}
+            <div
+              className={clsx("u-no-margin", {
+                "p-status-label--positive":
+                  spec.status === "Approved" ||
+                  spec.status === "Completed" ||
+                  spec.status === "Active",
+                "p-status-label--caution": spec.status
+                  .toLowerCase()
+                  .startsWith("pending"),
+                "p-status-label":
+                  spec.status === "Drafting" || spec.status === "Braindump",
+                "p-status-label--negative":
+                  spec.status === "Rejected" ||
+                  spec.status === "Obsolete" ||
+                  spec.status === "Unknown",
+              })}
+            >
+              {spec.status}
             </div>
           </div>
           <h3 className="p-heading--4 u-no-margin--bottom">

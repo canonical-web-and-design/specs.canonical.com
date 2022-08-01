@@ -1,8 +1,14 @@
 import { SearchBox } from "@canonical/react-components";
 import { useEffect, useState } from "react";
 
-const Search = ({ onChange }: { onChange: (query: string) => void }) => {
-  const [query, setQuery] = useState("");
+const Search = ({
+  onChange,
+  defaultValue,
+}: {
+  onChange: (query: string) => void;
+  defaultValue: string;
+}) => {
+  const [query, setQuery] = useState(defaultValue);
   useEffect(() => {
     onChange(query);
   }, [query]);

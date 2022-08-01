@@ -10,3 +10,7 @@ export function sortSet(elements: Set<string>): string[] {
   }
   return sortedElements;
 }
+
+export function capitalize(s: string) {
+  return s[0].toUpperCase() + s.slice(1);
+}

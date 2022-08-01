@@ -1,7 +1,8 @@
 import { CheckboxInput, Select } from "@canonical/react-components";
 import { useFormik } from "formik";
 import { useEffect } from "react";
-import { specTypes } from "./App";
+import { specStatuses, specTypes } from "./App";
+import { capitalize } from "./utils";
 
 export type FilterOptions = {
   team: string;
@@ -15,30 +16,16 @@ const Filters = ({
   authors,
   teams,
   onChange,
+  defaultOptions,
 }: {
   authors: string[];
   teams: string[];
   onChange: (filterOptions: FilterOptions) => void;
+  defaultOptions: FilterOptions;
 }) => {
-  const statuses = [
-    "Approved",
-    "Active",
-    "Completed",
-    "Pending Review",
-    "Drafting",
-    "Braindump",
-    "Rejected",
-    "Obsolete",
-    "Unknown",
-  ];
+  const statuses = [...specStatuses].map((status) => capitalize(status));
   const formik = useFormik({
-    initialValues: {
-      team: "all",
-      status: [],
-      type: [],
-      author: "all",
-      sortBy: "date",
-    },
+    initialValues: defaultOptions,
     onSubmit: onChange,
   });
   useEffect(() => {
@@ -47,7 +34,7 @@ const Filters = ({
   return (
     <form onSubmit={formik.handleSubmit}>
       <Select
-        defaultValue="all"
+        defaultValue={defaultOptions.team}
         label="Team"
         name="team"
         id="team"
@@ -65,6 +52,11 @@ const Filters = ({
           name="status"
           value={status}
           onChange={formik.handleChange}
+          defaultChecked={
+            !!defaultOptions.status.find(
+              (defaultCheckedStatus) => defaultCheckedStatus === status
+            )
+          }
         />
       ))}
 
@@ -76,10 +68,15 @@ const Filters = ({
           value={typeName}
           name="type"
           onChange={formik.handleChange}
+          defaultChecked={
+            !!defaultOptions.type.find(
+              (defaultCheckedType) => defaultCheckedType === typeName
+            )
+          }
         />
       ))}
       <Select
-        defaultValue="all"
+        defaultValue={defaultOptions.author}
         label="Author"
         name="author"
         id="author"
@@ -90,7 +87,7 @@ const Filters = ({
         onChange={formik.handleChange}
       />
       <Select
-        defaultValue="all"
+        defaultValue={defaultOptions.sortBy}
         label="Sort by"
         name="sortBy"
         id="sortBy"
