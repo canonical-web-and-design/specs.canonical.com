@@ -9,7 +9,6 @@ import { sortSet } from "./utils";
 export const specTypes = new Set(["Standard", "Informational", "Process"]);
 export const specStatuses = new Set([
   "active",
-  "Active",
   "approved",
   "braindump",
   "completed",
