@@ -10,17 +10,21 @@ RUN --mount=type=cache,target=/root/.cache/pip pip3 install --user --requirement
 
 # Build stage: Install yarn dependencies
 # ===
-FROM node:12 AS yarn-dependencies
+FROM node:18 AS yarn-dependencies
 WORKDIR /srv
 ADD package.json yarn.lock .
-RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install --production
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install
 
 
-# Build stage: Run "yarn run build-css"
+# Build stage: React app
 # ===
-FROM yarn-dependencies AS build-css
-ADD src src
-RUN yarn run build-css
+FROM yarn-dependencies AS frontend-build
+ADD client client
+ADD tsconfig.json tsconfig.json
+ADD tsconfig.node.json tsconfig.node.json
+ADD vite.config.ts vite.config.ts
+
+RUN yarn run build
 
 
 # Build the production image
@@ -35,7 +39,7 @@ WORKDIR /srv
 COPY . .
 ENV PATH="/root/.local/bin:${PATH}"
 RUN rm -rf package.json yarn.lock .babelrc webpack.config.js requirements.txt
-COPY --from=build-css /srv/static/css static/css
+COPY --from=frontend-build /srv/static static
 
 # Set git commit ID
 ARG BUILD_ID
